@@ -1,0 +1,27 @@
+    .headings {
+        font-size: 100px;
+        font-family: "Roboto","Arial",sans-serif;
+        color: #000000;
+        text-align: center;
+        margin-top: 170px;
+    }
+
+    .login-button {       
+        display:block;
+        margin: 10px auto;        
+        padding: 15px;
+        border-radius: 50px;
+        font-size: 20px;
+        font-family: "Roboto","Arial",sans-serif;        
+        font-weight: bold;
+        color: #000000;
+        background-color: #d9d9d9;
+        border: none;
+        cursor: pointer;
+        width: 50%;
+        transition: 0.5s;
+        }
+
+    .login-button:hover {
+        background-color: hwb(0 60% 40%);
+        }
