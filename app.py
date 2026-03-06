@@ -19,7 +19,7 @@ def home():
     response = requests.get(url)
     data = response.json()
     
-    temperature = data["main"]["temp"]
+    temperature = round(data["main"]["temp"],1)
     feel = data["main"]["feels_like"]
     humidity= data["main"]["humidity"]
     pressure= data["main"]["pressure"]
