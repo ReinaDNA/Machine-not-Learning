@@ -2,48 +2,119 @@
 <html>
 <head>
     <title>Elementals</title>
-    <style>
-        .title {
-            font-size: 25px;
-        }
-
-        .ai {
-            width: 50px;
-            height: 50px;
-            background-color: rgb(215, 215, 215);
-            border-radius: 50%;
-            border: none;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .ai:hover{
-            box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
-        }
-
-
-        .ai img {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/main_page.css">
 </head>
 
 <body>
-    <h1 class="title">Elementals</h1>
+    <main class="page">
+        <header class="top-row">
+            <div class="brand">
+                <div class="logo-grid" aria-hidden="true">
+                    <span class="dot red"></span>
+                    <span class="dot green"></span>
+                    <span class="dot blue"></span>
+                    <span class="dot yellow"></span>
+                </div>
+                <h1 class="title">Elementals.</h1>
+            </div>
 
-    <button class="ai">
-      <img src="./image/logo.png" alt="logo">
-    </button>
+            <div class="top-actions">
+                <button class="ai" aria-label="AI assistant">
+                    <img src="./image/ailogo.png" alt="AI logo">
+                </button>
+                <div class="action-pill">
+                    <button class="pill-btn" aria-label="More options" type="button">
+                        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="5" r="2"></circle>
+                            <circle cx="12" cy="12" r="2"></circle>
+                            <circle cx="12" cy="19" r="2"></circle>
+                        </svg>
+                    </button>
+                    <span class="pill-divider"></span>
+                    <button class="pill-btn" aria-label="Profile" type="button">
+                        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 20a8 8 0 0 1 16 0"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-    <h1 class="weather">
-      Today's Weather
-    </h1>
+        <h2 class="weather-title">Today's Weather</h2>
 
-    <div style="width: 200px; height: 100px; background-color: #433965; border-radius: 25px;"></div>
+        <section class="weather-card">
+            <div class="left-panel">
+                <p class="location" id="weather-location"></p>
+                <p class="current">Current weather</p>
+                <p class="time" id="weather-time"></p>
 
+                <div class="temp-row">
+                    <span class="weather-icon" id="weather-icon" aria-hidden="true"></span>
+                    <p class="temp" id="weather-temp"></p>
+                    <div class="summary">
+                        <p class="status" id="weather-status"></p>
+                        <p class="feels" id="weather-feels"></p>
+                    </div>
+                </div>
+
+                <p class="forecast" id="weather-forecast"></p>
+
+                <div class="metrics" id="weather-metrics">
+                    <div>
+                        <p class="label">Wind</p>
+                        <p class="value" id="weather-wind"></p>
+                    </div>
+                    <div>
+                        <p class="label">Humidity</p>
+                        <p class="value" id="weather-humidity"></p>
+                    </div>
+                    <div>
+                        <p class="label">Visibility</p>
+                        <p class="value" id="weather-visibility"></p>
+                    </div>
+                    <div>
+                        <p class="label">Pressure</p>
+                        <p class="value" id="weather-pressure"></p>
+                    </div>
+                    <div>
+                        <p class="label">Dew point</p>
+                        <p class="value" id="weather-dew-point"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-panel">
+                <div class="map-toolbar">
+                    <button class="map-tool active" type="button">Rain</button>
+                    <button class="map-tool" type="button">Temp</button>
+                    <button class="map-tool" type="button">Wind</button>
+                </div>
+                <div class="map-box">
+                    <p class="map-overlay" id="weather-alert"></p>
+                    <a href="#" class="map-link" id="weather-map-link">Open Map</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="chat-block">
+            <div class="prompt-bar">
+                <button class="icon-btn" type="button" aria-label="Attach file">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
+                    </svg>
+                </button>
+                <input id="chat-input" type="text" placeholder="Ask Anything!" />
+                <button class="mic icon-btn" aria-label="Voice input" type="button">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="9" y="3" width="6" height="11" rx="3"></rect>
+                        <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="suggestions" id="suggestions-container"></div>
+        </section>
+    </main>
 </body>
 </html>
