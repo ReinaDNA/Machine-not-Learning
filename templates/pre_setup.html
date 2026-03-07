@@ -2,118 +2,10 @@
 <html>
     <head>
         <title>Pre-Setup</title>
+        <link rel="stylesheet" href="/static/pre-setup.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <style>
-                p {
-                    font-family: Roboto;
-                    margin-top: 0px;
-                    margin-bottom: 5px;
-                }
-
-                .brand {
-                    display: inline-flex;
-                    align-items: center;
-                    margin-left: 50px;
-                    margin-top: -10px;
-                    margin-bottom: -10px;
-                }
-
-                .logo-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 3px;
-                    margin-right: 10px;
-                }
-
-                .dot {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                }
-
-                .red {
-                background: #ff5e57;
-                }
-
-                .green {
-                background: #9be36b;
-                }
-
-                .blue {
-                background: #68c7f5;
-                }
-
-                .yellow {
-                background: #e8ea58;
-                }
-
-                .title {
-                    font-family: Roboto;
-                    font-size: 30px;
-                    font-weight:bold;
-                    color: #000000;
-                }
-
-                .greg-profile {
-                    display: inline-flex;
-                    align-items: center;
-                    margin-left: 75px;
-                }
-
-                .greg-pic{
-                    width: 75px;
-                    height: 75px;
-                    padding: 1px;
-                    background-color: #d9d9d9;
-                    border-radius: 50%;
-                }
-
-                .greg-talks{
-                    font-size: 20px;
-                    font-weight: 700;
-                    margin-left: 15px;
-
-                }
-
-                .content-block{
-                    display: block;
-                    margin-top: 20px;
-                    margin-left: 75px;
-                    background-size: 30px;
-                    background-color: #68c7f5;
-                    padding: 20px;
-                    border-radius: 10px;
-                }
-
-                .location{
-                    font-size: 15px;
-                }
-
-                input{
-                    margin-top: 5px;
-                    margin-bottom: 30px;
-                    padding-inline: 10px;
-                    padding-block: 5px;
-                    border: none;
-                    border-radius: 50px;
-                }
-
-                .land-size{
-                    display: inline;
-                }
-
-                .input-height, .input-width{
-                    width: 80px;
-                }
-
-                .input-height, .multiply, .input-width, .unit{
-                    display: inline;
-                }
-
-
-        </style>
     </head>
 
     <body>
@@ -125,12 +17,15 @@
                     <span class="dot yellow"></span>
             </div>
             <h1 class="title">Elementals.</h1>
+
         </div>
 
     <br></br>
+                
+    <div class="left">
 
         <div class="greg-profile">
-            <img class="greg-pic" src="templates/image/ailogo.png">
+            <img class="greg-pic" src="image/ailogo.png">
             <p class="greg-talks">Let's do a quick check before we start.</p>
         </div>
 
@@ -139,13 +34,52 @@
                 <p>Location</p>
                 <input class="input-location" type="text">
             </div>
+            <div>
             <div class="land-size">
                 <p>Land size</p>
-                <input class="input-height" type="number">
-                <p class="multiply">&times</p>
-                <input class="input-width" type="number">
-                <p class="unit">m</p>
+                <input class="input-height" type="number" placeholder="Height">
+                <span class="multiply">&times</span>
+                <input class="input-width" type="number" placeholder="Width">
+                <span class="unit">m</span>
             </div>
+            </div>
+            <div class="props-marketprice">
+                <div class="column">
+                    <p>Props</p>
+                    <div class="props-row">
+                    <span class="list-icon">&#9776;</span>
+                    <input class="input-props" type="text" placeholder="e.g. Corn">
+                    </div>
+                    <div class="props-row">
+                    <span class="list-icon">&#9776;</span>
+                    <input class="input-props" type="text" placeholder="e.g. Corn">
+                    </div>
+                    <div class="props-row">
+                    <span class="list-icon">&#9776;</span>
+                    <input class="input-props" type="text" placeholder="e.g. Corn">
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="market-price">
+                    <p class="market-title">Market Price</p>
+                    <select class="price-unit" name="fruits">
+                    <option value="apple">RM</option>
+                    <option value="banana">SGR</option> // 叫新加坡人来马来西亚做外劳
+                    <option value="cherry">USD</option>
+                    </select>
+                    </div>
+                    <div class="adjust-price">
+                    <input class="input-price" type="number" placeholder ="e.g. 3.50">
+                    <input class="input-price" type="number" placeholder ="e.g. 3.50">
+                    <input class="input-price" type="number" placeholder ="e.g. 3.50">
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="right">
+            <button>Submit</button>
         </div>
     </body>
 </html>
