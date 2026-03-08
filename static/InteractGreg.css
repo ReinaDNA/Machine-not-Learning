@@ -1,5 +1,5 @@
 :root {
-    --bg: #f3f3f3;
+    --bg: #74a9ff;
     --text: #111111;
     --muted: #666666;
     --card: #2f2e66;
@@ -16,6 +16,7 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text);
     background-color: var(--bg);
+    transition: background-color 0.25s ease;
 }
 
 .page {
@@ -36,34 +37,12 @@ body {
     gap: 18px;
 }
 
-.logo-grid {
-    width: 58px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-}
-
-/* For the elementals logo */
-.dot {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-}
-
-.red {
-    background: #ff5e57;
-}
-
-.green {
-    background: #9be36b;
-}
-
-.blue {
-    background: #68c7f5;
-}
-
-.yellow {
-    background: #e8ea58;
+.brand-logo {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
 }
 
 .title {
@@ -92,12 +71,13 @@ body {
     cursor: pointer;
 }
 
-.ai img {
+.review-logo {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
     display: block;
+    padding-top: 5px;
 }
 
 /* Setting and Profile circle */
@@ -144,7 +124,9 @@ body {
     margin: 5px 0 14px;
     font-size: clamp(10px, 4.8vw, 20px);
     line-height: 0.5;
-    padding-left: 80px;
+    padding-top: 10px;
+    padding-left: 110px;
+    white-space: nowrap;
 }
 
 .question{
