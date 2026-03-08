@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | Elementals</title>
+    <title>Profile | GregHarvest</title>
     <link rel="stylesheet" href="../static/profile.css">
 </head>
 <body>
     <main class="page">
         <header class="top-row">
             <div class="brand">
-                <span class="logo-dot red"></span>
-                <span class="logo-dot green"></span>
-                <span class="logo-dot blue"></span>
-                <span class="logo-dot yellow"></span>
-                <h1>Elementals</h1>
+                <img class="brand-logo" src="../static/image/brandlogo.png" alt="GregHarvest AI logo">
+                <h1>GregHarvest</h1>
             </div>
 
             <div class="quick-actions">
@@ -46,10 +43,7 @@
             </div>
             <h2>Profile</h2>
             <button class="edit-btn" type="button" aria-label="Edit profile">
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 20h4l10-10-4-4L4 16v4z"></path>
-                    <path d="M12 6l4 4"></path>
-                </svg>
+                <img class="edit-icon-img" src="../static/image/edit.png" alt="Edit icon">
             </button>
         </section>
 
@@ -77,19 +71,33 @@
                     <span>--</span>
                 </div>
 
-                <h3 class="map-title">Map</h3>
-                <div class="map-box" role="img" aria-label="Farm map and crop legend">
-                    <div class="mini-map">
-                        <span class="tile corn"></span>
-                        <span class="tile corn"></span>
-                        <span class="tile apple"></span>
-                        <span class="tile carrot"></span>
+                <h3 class="map-title">Grid View</h3>
+                <div class="map-box">
+                    <div class="designer-toolbar">
+                        <label class="sr-only" for="active-plant">Active Plant</label>
+                        <select id="active-plant" class="control-input"></select>
+                        <label class="sr-only" for="grid-size">Grid Size</label>
+                        <select id="grid-size" class="control-input">
+                            <option value="6">6 x 6</option>
+                            <option value="8" selected>8 x 8</option>
+                            <option value="10">10 x 10</option>
+                            <option value="12">12 x 12</option>
+                        </select>
+                        <button id="clear-grid" class="control-btn" type="button">Clear</button>
                     </div>
-                    <ul class="legend">
-                        <li><span class="dot corn"></span>--</li>
-                        <li><span class="dot carrot"></span>--</li>
-                        <li><span class="dot apple"></span>--</li>
-                    </ul>
+                    <div id="plant-grid" class="plant-grid" style="--grid-size: 8;" aria-label="Editable farm grid"></div>
+                    <ul class="legend" id="plant-legend"></ul>
+                </div>
+
+                <div class="grid-controls">
+                    <p class="control-title">Add New Plant</p>
+                    <div class="control-row">
+                        <label for="new-plant-name">Plant Name</label>
+                        <input id="new-plant-name" class="control-input" type="text" placeholder="Example: Mango">
+                        <label for="new-plant-color">Plant Color</label>
+                        <input id="new-plant-color" class="control-input color-input" type="color" value="#2db56e">
+                        <button id="add-plant" class="control-btn" type="button">Add Plant</button>
+                    </div>
                 </div>
             </div>
 
@@ -130,5 +138,136 @@
 
         <p class="foot-note">--</p>
     </main>
+    <script>
+        (function () {
+            const plants = {
+                corn: { label: "Corn", color: "#b6ba00" },
+                carrot: { label: "Carrot", color: "#e48700" },
+                apple: { label: "Apple", color: "#c50000" }
+            };
+
+            const activePlantSelect = document.getElementById("active-plant");
+            const gridSizeSelect = document.getElementById("grid-size");
+            const clearGridButton = document.getElementById("clear-grid");
+            const addPlantButton = document.getElementById("add-plant");
+            const newPlantNameInput = document.getElementById("new-plant-name");
+            const newPlantColorInput = document.getElementById("new-plant-color");
+            const grid = document.getElementById("plant-grid");
+            const legend = document.getElementById("plant-legend");
+
+            let isPainting = false;
+            let activePlant = "corn";
+
+            function toKey(value) {
+                return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+            }
+
+            function ensurePlantStyle(key, color) {
+                if (document.getElementById("plant-style-" + key)) {
+                    return;
+                }
+                const style = document.createElement("style");
+                style.id = "plant-style-" + key;
+                style.textContent = ".grid-cell." + key + ", .dot." + key + " { background: " + color + "; }";
+                document.head.appendChild(style);
+            }
+
+            function renderPlantOptions() {
+                const previous = activePlantSelect.value || activePlant;
+                activePlantSelect.innerHTML = "";
+                Object.keys(plants).forEach((key) => {
+                    const option = document.createElement("option");
+                    option.value = key;
+                    option.textContent = plants[key].label;
+                    activePlantSelect.appendChild(option);
+                });
+                activePlant = plants[previous] ? previous : Object.keys(plants)[0];
+                activePlantSelect.value = activePlant;
+            }
+
+            function renderLegend() {
+                legend.innerHTML = "";
+                Object.keys(plants).forEach((key) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = '<span class="dot ' + key + '"></span>' + plants[key].label;
+                    legend.appendChild(li);
+                });
+            }
+
+            function paintCell(cell, plantKey) {
+                cell.className = "grid-cell " + plantKey;
+                cell.dataset.plant = plantKey;
+                cell.setAttribute("aria-label", "Grid cell with " + plants[plantKey].label);
+            }
+
+            function buildGrid(size) {
+                grid.innerHTML = "";
+                grid.style.setProperty("--grid-size", String(size));
+                for (let i = 0; i < size * size; i += 1) {
+                    const cell = document.createElement("button");
+                    cell.type = "button";
+                    cell.className = "grid-cell empty";
+                    cell.dataset.plant = "empty";
+                    cell.setAttribute("aria-label", "Empty grid cell");
+
+                    cell.addEventListener("mousedown", function (event) {
+                        event.preventDefault();
+                        isPainting = true;
+                        paintCell(cell, activePlant);
+                    });
+                    cell.addEventListener("mouseenter", function () {
+                        if (isPainting) {
+                            paintCell(cell, activePlant);
+                        }
+                    });
+                    cell.addEventListener("click", function () {
+                        paintCell(cell, activePlant);
+                    });
+                    grid.appendChild(cell);
+                }
+            }
+
+            document.addEventListener("mouseup", function () {
+                isPainting = false;
+            });
+            grid.addEventListener("mouseleave", function () {
+                isPainting = false;
+            });
+
+            activePlantSelect.addEventListener("change", function () {
+                activePlant = activePlantSelect.value;
+            });
+
+            gridSizeSelect.addEventListener("change", function () {
+                buildGrid(Number(gridSizeSelect.value));
+            });
+
+            clearGridButton.addEventListener("click", function () {
+                buildGrid(Number(gridSizeSelect.value));
+            });
+
+            addPlantButton.addEventListener("click", function () {
+                const name = newPlantNameInput.value.trim();
+                const color = newPlantColorInput.value;
+                const key = toKey(name);
+                if (!key || plants[key]) {
+                    return;
+                }
+                plants[key] = { label: name, color: color };
+                ensurePlantStyle(key, color);
+                renderPlantOptions();
+                renderLegend();
+                activePlantSelect.value = key;
+                activePlant = key;
+                newPlantNameInput.value = "";
+            });
+
+            ensurePlantStyle("empty", "#f1f1f1");
+            Object.keys(plants).forEach((key) => ensurePlantStyle(key, plants[key].color));
+            renderPlantOptions();
+            renderLegend();
+            buildGrid(Number(gridSizeSelect.value));
+        })();
+    </script>
 </body>
 </html>
