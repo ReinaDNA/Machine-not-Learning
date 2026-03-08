@@ -62,6 +62,7 @@
         background-color: #8EAAFF;
         border-radius: 50%;
         margin-top: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2)
     }
 
     .greg-talks {
@@ -87,6 +88,8 @@
         background-color: #8EAAFF;
         padding: 30px 40px;
         border-radius: 40px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2)
+
     }
 
     .location{
@@ -101,7 +104,7 @@
         padding-inline: 20px;
         padding-block: 5px;
         border-radius: 50px;
-        height: 25px;
+        height: 30px;
         background-color: #ffffff;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         font-family: Roboto;
@@ -159,11 +162,10 @@
         margin-bottom: 10px;
         padding-inline: 10px;
         border-radius: 50px;
-        height: 35px;
+        height: 40px;
         width: 208px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         transition:0.15s;
-        outline-color: #7094ff;
     }
 
     .props-row:hover{
@@ -171,14 +173,16 @@
     }
 
     .input-props{
+        width: 250px;
         background: transparent;
-        outline: none;
         margin: 0;
         box-shadow: none;
+        outline-color: #7094ff;
+        height: 25px;
     }
 
     .input-price{
-        margin-bottom: 5px;
+        margin-bottom: 4.8px;
     }
 
     .list-icon {
