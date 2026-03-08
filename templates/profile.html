@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Elementals</title>
+    <link rel="stylesheet" href="../static/profile.css">
+</head>
+<body>
+    <main class="page">
+        <header class="top-row">
+            <div class="brand">
+                <span class="logo-dot red"></span>
+                <span class="logo-dot green"></span>
+                <span class="logo-dot blue"></span>
+                <span class="logo-dot yellow"></span>
+                <h1>Elementals</h1>
+            </div>
+
+            <div class="quick-actions">
+                <button class="soft-btn" type="button" aria-label="Support">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 8v5"></path>
+                        <circle cx="12" cy="16.5" r="0.8"></circle>
+                    </svg>
+                    <span>Support</span>
+                </button>
+                <button class="soft-btn" type="button" aria-label="Logout">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4"></path>
+                        <path d="M14 16l5-4-5-4"></path>
+                        <path d="M19 12H9"></path>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="profile-title">
+            <div class="avatar" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M4 20a8 8 0 0 1 16 0"></path>
+                </svg>
+            </div>
+            <h2>Profile</h2>
+            <button class="edit-btn" type="button" aria-label="Edit profile">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 20h4l10-10-4-4L4 16v4z"></path>
+                    <path d="M12 6l4 4"></path>
+                </svg>
+            </button>
+        </section>
+
+        <section class="profile-card">
+            <div class="col left">
+                <h3>Name</h3>
+                <p class="field">--</p>
+
+                <h3>Email</h3>
+                <p class="field">--</p>
+
+                <h3>Location</h3>
+                <p class="field">--</p>
+
+                <h3>Version</h3>
+                <p class="version">--</p>
+            </div>
+
+            <div class="col middle">
+                <h3>Land Size</h3>
+                <div class="size-row">
+                    <span class="mini-field">--</span>
+                    <span>x</span>
+                    <span class="mini-field">--</span>
+                    <span>--</span>
+                </div>
+
+                <h3 class="map-title">Map</h3>
+                <div class="map-box" role="img" aria-label="Farm map and crop legend">
+                    <div class="mini-map">
+                        <span class="tile corn"></span>
+                        <span class="tile corn"></span>
+                        <span class="tile apple"></span>
+                        <span class="tile carrot"></span>
+                    </div>
+                    <ul class="legend">
+                        <li><span class="dot corn"></span>--</li>
+                        <li><span class="dot carrot"></span>--</li>
+                        <li><span class="dot apple"></span>--</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col right">
+                <div class="head-with-currency">
+                    <h3>Props &amp; Market Prices</h3>
+                    <div class="currency-wrap">
+                        <label class="sr-only" for="sea-currency">Currency</label>
+                        <select class="currency" id="sea-currency" name="sea_currency">
+                            <option value="" selected>--</option>
+                        </select>
+                        <span class="currency-caret" aria-hidden="true">v</span>
+                    </div>
+                </div>
+
+                <div class="pill-list">
+                    <p class="list-pill"><span>--</span><span class="value">--</span></p>
+                    <p class="list-pill"><span>--</span><span class="value">--</span></p>
+                    <p class="list-pill warn">
+                        <span>--</span>
+                        <svg class="warning" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 3L2 21h20L12 3z"></path>
+                            <path d="M12 9v5"></path>
+                            <circle cx="12" cy="17" r="1"></circle>
+                        </svg>
+                        <span class="value">--</span>
+                    </p>
+                </div>
+
+                <h3 class="harvest-title">Harvest Times</h3>
+                <div class="pill-list">
+                    <p class="list-pill"><span>--</span><span class="value">--</span></p>
+                    <p class="list-pill"><span>--</span><span class="value">--</span></p>
+                    <p class="list-pill"><span>--</span><span class="value">--</span></p>
+                </div>
+            </div>
+        </section>
+
+        <p class="foot-note">--</p>
+    </main>
+</body>
+</html>
