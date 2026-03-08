@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elementals</title>
+    <link rel="stylesheet" href="../static/History.css">
+</head>
+
+<body>
+    <main class="page">
+        <header class="top-row">
+            <div class="brand">
+                <div class="logo-grid" aria-hidden="true">
+                    <span class="dot red"></span>
+                    <span class="dot green"></span>
+                    <span class="dot blue"></span>
+                    <span class="dot yellow"></span>
+                </div>
+                <h1 class="title">Elementals.</h1>
+            </div>
+
+            <div class="top-actions">
+                <button class="ai" aria-label="AI assistant">
+                    <img src="./image/ailogo.png" alt="AI logo">
+                </button>
+
+                <div class="action-pill">
+                    <button id="menu-btn" class="pill-btn" aria-label="More options" type="button">
+                        <svg class="icon-svg" viewBox="0 0 24 24">
+                        <circle cx="12" cy="5" r="2"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                        <circle cx="12" cy="19" r="2"></circle>
+                        </svg>
+                    </button>
+
+                    <span class="pill-divider"></span>
+                    <button class="pill-btn" aria-label="Profile" type="button">
+                        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 20a8 8 0 0 1 16 0"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="layout">
+
+            <div class="chat-area">
+
+        <h2 class="Chitchat">Chitchat Scenario</h2>
+
+        <div class="question">How is the weather today?</div>
+
+        <div class="response-box">
+
+        <div class="ai-text">
+            <p>Everything is great. Keep going!</p>
+        </div>
+            
+        </div>
+
+        <!--Input Bar--> 
+        <section class="chat-block">
+            <div class="prompt-bar">
+                <button class="icon-btn" type="button" aria-label="Attach file">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
+                    </svg>
+                </button>
+                <input id="chat-input" type="text" placeholder="Ask Anything!" />
+                <button class="mic icon-btn" aria-label="Voice input" type="button">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="9" y="3" width="6" height="11" rx="3"></rect>
+                        <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
+                    </svg>
+                </button>
+            </div>
+
+        </section>
+            </div>
+
+        <!-- History Sidebar -->
+        <aside id="history-panel" class="history-panel">
+
+            <h3 class="history-title">History</h3>
+
+            <div class="history-item">
+                Chitchat Scenario
+            </div>
+
+            <div class="history-search">
+                Kuching Weather Forecast Today
+            </div>
+
+        </aside>
+        </div>
+
+    </main>
+
+<script>
+
+const menuBtn = document.getElementById("menu-btn");
+const historyPanel = document.getElementById("history-panel");
+
+menuBtn.addEventListener("click", function () {
+    historyPanel.classList.toggle("open");
+});
+
+</script>
+
+</body>
+</html>
