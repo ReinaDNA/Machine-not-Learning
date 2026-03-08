@@ -1,0 +1,358 @@
+:root {
+    --bg: #f3f3f3;
+    --text: #111111;
+    --muted: #666666;
+    --card: #2f2e66;
+    --card-deep: #23224f;
+    --panel: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
+}
+
+.page {
+    width: min(1320px, 92vw);
+    margin: 44px auto 18px;
+}
+
+.top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.logo-grid {
+    width: 58px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+/* For the elementals logo */
+.dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+}
+
+.red {
+    background: #ff5e57;
+}
+
+.green {
+    background: #9be36b;
+}
+
+.blue {
+    background: #68c7f5;
+}
+
+.yellow {
+    background: #e8ea58;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 800;
+    line-height: 1;
+}
+
+/* Making the profile and setting onto the top right */
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* AI logo circle */
+.ai {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: #d9d9d9;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+}
+
+.ai img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+/* Setting and Profile circle */
+.action-pill {
+    min-width: 220px;
+    height: 84px;
+    border-radius: 42px;
+    background: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.14);
+}
+
+.pill-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #1f1f1f;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+}
+
+.pill-divider {
+    width: 2px;
+    height: 54%;
+    background: #1f1f1f;
+    opacity: 0.7;
+}
+
+.icon-svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.Chitchat {
+    margin: 5px 0 14px;
+    font-size: clamp(10px, 4.8vw, 20px);
+    line-height: 0.5;
+    padding-left: 80px;
+}
+
+.question{
+background:#d9d9d9;
+padding:15px 25px;
+border-radius:25px 0px 25px 25px;
+box-shadow:0 4px 5px rgba(0,0,0,0.15);
+width:max-content;
+margin-left:auto;   /* pushes bubble to the right */
+margin-right:0px;
+margin-top:50px;
+margin-bottom:25px;
+font-weight:500;
+}
+
+.response-box{
+background:#b5ffb2;
+border-radius:0px 25px 25px 25px;
+box-shadow:0 6px 12px rgba(0,0,0,0.15);
+display:flex;
+font-weight:500;
+gap:30px;
+padding:5px 25px;
+width: max-content;
+align-items:flex-start;
+font-weight:500;
+margin-right:100px;
+}
+
+.ai-text{
+max-width:max-content;
+line-height:1.5;
+
+}
+
+.chat-block {
+    margin-top: 200px;
+    max-width: 2000px;
+}
+
+.prompt-bar {
+    background: #dfdfdf;
+    border-radius: 36px;
+    min-height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 14px 8px 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+}
+
+.prompt-bar p {
+    margin: 0;
+    flex: 1;
+    font-size: 42px;
+    color: #7a7a7a;
+}
+
+.icon-btn {
+    border: none;
+    background: transparent;
+    color: #2f2f2f;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mic {
+    background: #f5f5f5;
+}
+
+#chat-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 30px;
+    color: #333333;
+}
+
+#chat-input::placeholder {
+    color: #7a7a7a;
+}
+
+.chip {
+    border: none;
+    border-radius: 22px;
+    min-height: 58px;
+    text-align: left;
+    padding: 0 22px;
+    font-size: 42px;
+    color: #606060;
+    background: #e4e4e4;
+    cursor: pointer;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.14);
+}
+
+.history-panel{
+width:0;
+overflow:hidden;
+background:#8eaaff;
+border-radius:30px 0 0 30px;
+box-shadow:0 6px 12px rgba(5,5,0,0.15);
+transition:0.3s;
+padding:30px 0;
+margin-top:10px;
+margin-left:10px;
+}
+
+.history-panel.open{
+width:300px;
+padding:30px;
+}
+
+.history-title{
+margin-top: -20px;
+margin-left: -2px;
+font-size: 25px;
+}
+
+.history-item{
+background:white;
+padding: 10px 10px;
+width: 400px;
+border-radius: 50px;
+box-shadow:-5px 0 15px rgba(0,0,0,0.2);
+font-weight: 500;
+}
+
+.history-search{
+padding-top: 20px;
+padding-left: 9px;
+font-size: medium;
+white-space: nowrap;
+}
+
+.layout{
+display:flex;
+position:relative;
+}
+
+/* Chat area takes full width initially */
+
+.chat-area{
+flex:1;
+transition:0.3s;
+}
+
+/* Interaction layer: hover, active, focus, and stronger shadows */
+.ai,
+.action-pill,
+.pill-btn,
+.weather-card,
+.prompt-bar,
+.icon-btn,
+
+.chip {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.ai:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.24);
+}
+
+.ai:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.action-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2);
+}
+
+.pill-btn:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+    border-radius: 50px;
+}
+
+.pill-btn:active {
+    transform: scale(0.94);
+    background-color: #94afff;
+}
+
+.prompt-bar:focus-within {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+}
+
+.icon-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.icon-btn:active {
+    transform: scale(0.93);
+    background:#8eaaff;
+}
+
+.chip:hover {
+    transform: translateY(-2px);
+    background: #eeeeee;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.18);
+}
+
+.chip:active {
+    transform: translateY(0);
+}
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Elementals</title>
+    <title>GregHarvest</title>
     <link rel="stylesheet" href="../static/main_page.css">
 </head>
 
@@ -9,18 +9,13 @@
     <main class="page">
         <header class="top-row">
             <div class="brand">
-                <div class="logo-grid" aria-hidden="true">
-                    <span class="dot red"></span>
-                    <span class="dot green"></span>
-                    <span class="dot blue"></span>
-                    <span class="dot yellow"></span>
-                </div>
-                <h1 class="title">Elementals.</h1>
+                <img class="brand-logo" src="../static/image/brandlogo.png" alt="GregHarvest AI logo">
+                <h1 class="title">GregHarvest.</h1>
             </div>
 
             <div class="top-actions">
-                <button class="ai" aria-label="AI assistant">
-                    <img src="../static/images/ailogo.png" alt="AI logo">
+                <button class="ai" id="review-logo-btn" aria-label="AI assistant">
+                    <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
                 </button>
                 <div class="action-pill">
                     <button class="pill-btn" aria-label="More options" type="button">
@@ -116,5 +111,13 @@
             <div class="suggestions" id="suggestions-container"></div>
         </section>
     </main>
+    <script>
+        (function () {
+            const reviewLogoBtn = document.getElementById("review-logo-btn");
+            reviewLogoBtn.addEventListener("click", function () {
+                document.body.classList.add("bg-blue");
+            });
+        })();
+    </script>
 </body>
 </html>
