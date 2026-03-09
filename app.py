@@ -68,7 +68,6 @@ def chatbot():
     return render_template("InteractGreg.html", question=question)
 
 def get_chatbot_response(question):
-    
     conversation.append(
         {"role" : "user", 
          "content": question
@@ -78,7 +77,6 @@ def get_chatbot_response(question):
         model="gpt-4.1-mini",
         messages=conversation
     )
-
     answer = response.choices[0].message.content
     conversation.append(
         {"role" : "assistant", 
@@ -86,7 +84,7 @@ def get_chatbot_response(question):
         }
     )
 
-    return jsonify({"reply": answer})
+    return answer
 
 @app.route("/chatbot-conversations", methods = ["POST"])
 def ask_ai():
@@ -96,7 +94,8 @@ def ask_ai():
 
     answer = get_chatbot_response(question)
 
-    return answer
+    return jsonify({"reply": answer})
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
