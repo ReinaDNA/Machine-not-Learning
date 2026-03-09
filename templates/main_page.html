@@ -40,16 +40,16 @@
 
         <section class="weather-card">
             <div class="left-panel">
-                <p class="location" id="weather-location"></p>
+                <p class="location" id="weather-location">{{city}}</p>
                 <p class="current">Current weather</p>
-                <p class="time" id="weather-time"></p>
+                <p class="time" id="weather-time">{{time}}</p>
 
                 <div class="temp-row">
                     <span class="weather-icon" id="weather-icon" aria-hidden="true"></span>
-                    <p class="temp" id="weather-temp"></p>
+                    <p class="temp" id="weather-temp">{{temperature}}°C</p>
                     <div class="summary">
-                        <p class="status" id="weather-status"></p>
-                        <p class="feels" id="weather-feels"></p>
+                        <p class="status" id="weather-status">{{weather}}</p>
+                        <p class="feels" id="weather-feels">{{feel}}°C</p>
                     </div>
                 </div>
 
@@ -58,23 +58,23 @@
                 <div class="metrics" id="weather-metrics">
                     <div>
                         <p class="label">Wind</p>
-                        <p class="value" id="weather-wind"></p>
+                        <p class="value" id="weather-wind">{{wind}}m/s</p>
                     </div>
                     <div>
                         <p class="label">Humidity</p>
-                        <p class="value" id="weather-humidity"></p>
+                        <p class="value" id="weather-humidity">{{humidity}}%</p>
                     </div>
                     <div>
                         <p class="label">Visibility</p>
-                        <p class="value" id="weather-visibility"></p>
+                        <p class="value" id="weather-visibility">{{visibility}}m</p>
                     </div>
                     <div>
                         <p class="label">Pressure</p>
-                        <p class="value" id="weather-pressure"></p>
+                        <p class="value" id="weather-pressure">{{pressure}}hPa</p>
                     </div>
                     <div>
                         <p class="label">Dew point</p>
-                        <p class="value" id="weather-dew-point"></p>
+                        <p class="value" id="weather-dew-point">{{dew_point}}°C</p>
                     </div>
                 </div>
             </div>
@@ -119,5 +119,17 @@
             });
         })();
     </script>
+
+    <script>
+        const input = document.getElementById("chat-input");
+        input.addEventListener("keypress", function(event) {
+
+    if(event.key === "Enter"){
+        const question = input.value;
+        window.location.href = "/chatbot?question=" + encodeURIComponent(question);
+    }
+    });
+    </script>
+    
 </body>
 </html>
