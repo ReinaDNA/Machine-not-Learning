@@ -1,14 +1,25 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 import requests
 import os
 from dotenv import load_dotenv
 from datetime import datetime, timezone, timedelta
 import math
-
+from openai import OpenAI
+from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
+CORS(app)
+conversation = [
+    {
+    "role": "system", 
+    "content": "You are an AI assistant that helps farmer to provide agricultural advices."
+    }
+]
 
 @app.route("/")
 def home():
@@ -50,6 +61,42 @@ def home():
         time=time_str,
         dew_point=dew_point
     )
+
+@app.route("/chatbot", methods=["POST", "GET"])
+def chatbot():
+    question = request.args.get("question")
+    return render_template("InteractGreg.html", question=question)
+
+def get_chatbot_response(question):
+    
+    conversation.append(
+        {"role" : "user", 
+         "content": question
+        }
+    )
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=conversation
+    )
+
+    answer = response.choices[0].message.content
+    conversation.append(
+        {"role" : "assistant", 
+         "content": answer
+        }
+    )
+
+    return jsonify({"reply": answer})
+
+@app.route("/chatbot-conversations", methods = ["POST"])
+def ask_ai():
+
+    data = request.get_json()
+    question = data["question"]
+
+    answer = get_chatbot_response(question)
+
+    return answer
 
 if __name__ == "__main__":
     app.run(debug=True)
