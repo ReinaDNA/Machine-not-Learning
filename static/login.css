@@ -1,0 +1,65 @@
+    body{
+        margin:0;
+        min-height: 100vh;
+        display:flex;
+        flex-direction: column;
+        align-items:center;
+    }
+
+    .brand {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 100px;
+    }
+
+    .greg-profile{
+        width: 150px;
+    }
+
+    .title{
+        font-family: Roboto;
+        font-size: 90px;
+        font-weight:bold;
+        color: #000000;
+    }
+
+    button{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap: 20px;
+        text-align: center;
+        width: 700px;
+        height: 50px;
+        border-radius: 50px;
+        border: none;
+        background-color: #d9d9d9;
+        font-family: Roboto;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 15px;
+        transition: 0.15s;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover{
+        background-color: #7a7a7a;
+    }
+
+    button:active{
+        background-color: #3e3e3e;
+        color: white;
+    }
+
+    .logo{
+        display: inline-block;
+        width: 20px;
+    }
+
+    .footer{
+        margin-top:auto;
+        margin-bottom:10px;
+        font-family:Roboto;
+        font-size:12px;
+        font-weight: bold;
+    }
