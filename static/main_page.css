@@ -19,14 +19,6 @@ body {
     transition: background-color 0.25s ease;
 }
 
-body.bg-blue {
-    background-color: #74a9ff;
-}
-
-body.bg-blue {
-    background-color: #74a9ff;
-}
-
 .page {
     width: min(1320px, 92vw);
     margin: 44px auto 18px;
