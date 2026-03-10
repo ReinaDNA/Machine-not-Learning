@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import requests
 import os
 from dotenv import load_dotenv
@@ -7,6 +7,14 @@ import math
 from openai import OpenAI
 from flask_cors import CORS
 load_dotenv()
+
+#Local memory for data
+customer = {
+    "name":"Chan",
+    "email":"chan@gmail.com"
+
+
+}
 
 app = Flask(__name__)
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
@@ -37,7 +45,13 @@ def home():
     weather = data["weather"][0]["description"]
     visibility = data["visibility"]
     wind = data["wind"]["speed"]
-
+    customer["weather"] = {
+        "city": city,
+        "temperature": temperature,
+        "humidity": humidity,
+        "weather": weather,
+        "wind": wind
+    }
     a = 17.27
     b = 237.7
 
@@ -73,9 +87,26 @@ def chatbot():
     return render_template("InteractGreg.html", question=question, answer=answer)
 
 def get_chatbot_response(question):
+    weather_info = customer.get("weather", {})
+
+    weather_context = f"""
+    Current weather in {weather_info.get("city","unknown")}:
+    Temperature: {weather_info.get("temperature","unknown")}°C
+    Humidity: {weather_info.get("humidity","unknown")}%
+    Condition: {weather_info.get("weather","unknown")}
+    Wind Speed: {weather_info.get("wind","unknown")} m/s
+    """
     conversation.append(
         {"role" : "user", 
-         "content": question
+         "content": f"""
+        Weather data:
+        {weather_context}
+
+        Farmer question:
+        {question}
+
+        Use the weather information when giving agricultural advice.
+        """
         }
     )
     response = client.chat.completions.create(
@@ -101,17 +132,74 @@ def ask_ai():
 
     return jsonify({"reply": answer})
 
-@app.route("/pre_setup", methods = ["GET"])
+@app.route("/pre_setup", methods = ["GET", "POST"])
 def pre_setup():
+    
+    if request.method == "POST":
+        customer["location"] = request.form.get("location")
+        customer["length"]  = request.form.get("length")
+        customer["width"]  = request.form.get("width")
+        customer["crops"]  = request.form.getlist("crops")
+        customer["currency"]  = request.form.get("currency")
+        customer["price"]  = request.form.getlist("price")
+
+        return redirect(url_for("profile"))
+    
     return render_template("pre_setup.html")
 
-@app.route("/profile", methods = ["GET"])  
-def profile():
-    return render_template("profile.html")
+
 
 @app.route("/login", methods=["GET"])
 def login():
     return render_template("login.html")
+
+def get_crop_plan(customer):
+
+    area = int(customer["length"]) * int(customer["width"])
+    crops = customer["crops"]
+    prices = customer["price"]
+    prompt = f"""
+        A farmer has {area} square meters of land in {customer["location"]}.
+
+        Available crops and market price per kg:
+        {crops}
+        {prices}
+
+        Distribute the land among these crops to balance between yield and profit
+
+        Rules:
+        - Use ONLY the crops listed.
+        - The total area must equal {area}.
+        - Allocate integer square meters.
+
+        Return ONLY valid JSON. Do not include markdown or ```json blocks and keys in all lowercase.
+
+        Example format:
+
+        {{
+        "corn": 20,
+        "potato": 30,
+        "tomato": 10
+        }}
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {"role": "system", "content": "You are an agricultural profit optimization assistant."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    return response.choices[0].message.content
+
+@app.route("/profile", methods = ["GET"])  
+def profile():
+    suggestion = get_crop_plan(customer)
+    print(suggestion)
+    combined = zip(customer["crops"], customer["price"])
+    print(combined)
+    return render_template("profile.html",customer=customer,suggestion=suggestion,combined=combined)
 
 if __name__ == "__main__":
     app.run(debug=True)
