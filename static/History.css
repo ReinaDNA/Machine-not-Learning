@@ -1,5 +1,5 @@
 :root {
-    --bg: #f3f3f3;
+    --bg: #ffffff;
     --text: #111111;
     --muted: #666666;
     --card: #2f2e66;
@@ -16,6 +16,7 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text);
     background-color: var(--bg);
+    transition: background-color 0.25s ease;
 }
 
 .page {
@@ -36,34 +37,12 @@ body {
     gap: 18px;
 }
 
-.logo-grid {
-    width: 58px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-}
-
-/* For the elementals logo */
-.dot {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-}
-
-.red {
-    background: #ff5e57;
-}
-
-.green {
-    background: #9be36b;
-}
-
-.blue {
-    background: #68c7f5;
-}
-
-.yellow {
-    background: #e8ea58;
+.brand-logo {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
 }
 
 .title {
@@ -92,9 +71,10 @@ body {
     cursor: pointer;
 }
 
-.ai img {
+.review-logo{
     width: 100%;
     height: 100%;
+    padding-top: 2px;
     object-fit: cover;
     border-radius: 50%;
     display: block;
@@ -139,13 +119,6 @@ body {
     stroke-linejoin: round;
 }
 
-.Chitchat {
-    margin: 5px 0 14px;
-    font-size: clamp(10px, 4.8vw, 20px);
-    line-height: 0.5;
-    padding-left: 80px;
-}
-
 .question{
 background:#d9d9d9;
 padding:15px 25px;
@@ -157,6 +130,7 @@ margin-right:0px;
 margin-top:50px;
 margin-bottom:25px;
 font-weight:500;
+text-align: justify;
 }
 
 .response-box{
@@ -167,20 +141,20 @@ display:flex;
 font-weight:500;
 gap:30px;
 padding:5px 25px;
-width: max-content;
+width: 500px;
 align-items:flex-start;
 font-weight:500;
-margin-right:100px;
 }
 
 .ai-text{
 max-width:max-content;
 line-height:1.5;
+text-align: justify;
 
 }
 
 .chat-block {
-    margin-top: 200px;
+    margin-top: 120px;
     max-width: 2000px;
 }
 
@@ -248,7 +222,7 @@ line-height:1.5;
 .history-panel{
 width:0;
 overflow:hidden;
-background:#8eaaff;
+background:#a3baff;
 border-radius:30px 0 0 30px;
 box-shadow:0 6px 12px rgba(5,5,0,0.15);
 transition:0.3s;
