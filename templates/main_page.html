@@ -8,17 +8,54 @@
 <body>
     <main class="page">
         <header class="top-row">
-            <div class="brand">
+            <a class="brand">
                 <img class="brand-logo" src="../static/image/brandlogo.png" alt="GregHarvest AI logo">
                 <h1 class="title">GregHarvest.</h1>
-            </div>
+            </a>
 
             <div class="top-actions">
-                <button class="ai" id="review-logo-btn" aria-label="AI assistant" onclick="toggleSidebar()">
-                    <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
-                </button>
+                <div class="review-menu">
+                    <button class="ai" id="review-logo-btn" aria-label="AI assistant" type="button" onclick="toggleSidebar()">
+                        <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
+                    </button>
+
+                    <aside class="sidebar" id="sidebar" aria-label="Review details sidebar">
+                        <div class="sidebar-top">
+                            <button class="edit-btn" id="edit-sidebar-btn" type="button" aria-label="Enable edit mode" aria-pressed="false">
+                                <img class="edit-icon-img" src="../static/image/edit.png" alt="Edit icon">
+                            </button>
+                        </div>
+
+                        <h3>Location</h3>
+                        <div class="field editable-text" data-editable="true" contenteditable="false" spellcheck="false">Kuching, Sarawak</div>
+
+                        <h3>Land Size</h3>
+                        <div class="land-size">
+                            <div class="size-box editable-text" data-editable="true" contenteditable="false" spellcheck="false">30</div>
+                            <span>x</span>
+                            <div class="size-box editable-text" data-editable="true" contenteditable="false" spellcheck="false">30</div>
+                            <span>m</span>
+                        </div>
+
+                        <h3>Crops</h3>
+                        <div class="crop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Corn</span>
+                        </div>
+                        <div class="crop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Carrot</span>
+                        </div>
+                        <div class="crop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Apple</span>
+                            <span class="warning-wrap">
+                                <span class="warning" aria-label="Warning" tabindex="0">!</span>
+                                <span class="note" role="tooltip">May be hard to plant in this environment. Please pay attention to A.I.'s suggestions.</span>
+                            </span>
+                        </div>
+                    </aside>
+                </div>
+
                 <div class="action-pill">
-                    <button class="pill-btn" aria-label="More options" type="button">
+                    <button id="menu-btn" class="pill-btn" aria-label="More options" type="button">
                         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                             <circle cx="12" cy="5" r="2"></circle>
                             <circle cx="12" cy="12" r="2"></circle>
@@ -26,12 +63,14 @@
                         </svg>
                     </button>
                     <span class="pill-divider"></span>
+                    <a class="Profile" href="profile.html">
                     <button class="pill-btn" aria-label="Profile" type="button">
                         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                             <circle cx="12" cy="8" r="4"></circle>
                             <path d="M4 20a8 8 0 0 1 16 0"></path>
                         </svg>
                     </button>
+                    </a>
                 </div>
             </div>
         </header>
@@ -93,42 +132,134 @@
         </section>
 
         <section class="chat-block">
-            <div class="prompt-bar">
+            <form class="prompt-bar" action="/chatbot" method="get">
                 <button class="icon-btn" type="button" aria-label="Attach file">
                     <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
                     </svg>
                 </button>
-                <input id="chat-input" type="text" placeholder="Ask Anything!" />
-                <button class="mic icon-btn" aria-label="Voice input" type="button">
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <input id="chat-input" name="question" type="text" placeholder="Ask Anything!" />
+                <button id="compose-action-btn" class="mic icon-btn" aria-label="Voice input" type="submit">
+                    <svg class="icon-svg mic-icon" viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="9" y="3" width="6" height="11" rx="3"></rect>
                         <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
                     </svg>
+                    <svg class="icon-svg send-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22 2 11 13"></path>
+                        <path d="M22 2 15 22 11 13 2 9 22 2z"></path>
+                    </svg>
                 </button>
-            </div>
+            </form>
 
             <div class="suggestions" id="suggestions-container"></div>
         </section>
+
+        <aside id="history-panel" class="history-panel">
+            <h3 class="history-title">History</h3>
+            <div class="history-item">Kuching Weather Forecast Today</div>
+            <div class="history-search">What should I plant this season?</div>
+        </aside>
     </main>
-    <script>
-        (function () {
-            const reviewLogoBtn = document.getElementById("review-logo-btn");
-            reviewLogoBtn.addEventListener("click", function () {
-                document.body.classList.add("bg-blue");
-            });
-        })();
-    </script>
 
     <script>
+        const historyPanel = document.getElementById("history-panel");
+        const sidebar = document.getElementById("sidebar");
+        const reviewBtn = document.getElementById("review-logo-btn");
+        const menuBtn = document.getElementById("menu-btn");
+        const editBtn = document.getElementById("edit-sidebar-btn");
+        const editableFields = document.querySelectorAll("[data-editable='true']");
         const input = document.getElementById("chat-input");
-        input.addEventListener("keypress", function(event) {
+        const promptForm = document.querySelector(".prompt-bar");
+        const composeActionBtn = document.getElementById("compose-action-btn");
 
-    if(event.key === "Enter"){
-        const question = input.value;
-        window.location.href = "/chatbot?question=" + encodeURIComponent(question);
-    }
-    });
+        function positionSidebar() {
+            const reviewRect = reviewBtn.getBoundingClientRect();
+            sidebar.style.top = `${reviewRect.bottom + 12}px`;
+        }
+
+        function closeHistoryPanel() {
+            historyPanel.classList.remove("open");
+        }
+
+        function setSidebarEditMode(isEditing) {
+            sidebar.classList.toggle("editing", isEditing);
+            editBtn.setAttribute("aria-pressed", String(isEditing));
+            editBtn.setAttribute("aria-label", isEditing ? "Disable edit mode" : "Enable edit mode");
+
+            editableFields.forEach(function (field) {
+                field.setAttribute("contenteditable", isEditing ? "true" : "false");
+                field.setAttribute("aria-readonly", String(!isEditing));
+            });
+
+            if (isEditing && editableFields.length > 0) {
+                editableFields[0].focus();
+            }
+        }
+
+        function closeReviewSidebar() {
+            const page = document.querySelector(".page");
+            sidebar.classList.remove("show");
+            page.classList.remove("sidebar-open");
+            reviewBtn.classList.remove("active");
+            setSidebarEditMode(false);
+        }
+
+        function toggleSidebar() {
+            const page = document.querySelector(".page");
+            const willOpenSidebar = !sidebar.classList.contains("show");
+
+            if (willOpenSidebar) {
+                closeHistoryPanel();
+            }
+
+            const isOpen = sidebar.classList.toggle("show");
+            page.classList.toggle("sidebar-open", isOpen);
+            reviewBtn.classList.toggle("active", isOpen);
+
+            if (isOpen) {
+                positionSidebar();
+            }
+
+            setSidebarEditMode(false);
+        }
+
+        menuBtn.addEventListener("click", function () {
+            const willOpenHistory = !historyPanel.classList.contains("open");
+
+            if (willOpenHistory) {
+                closeReviewSidebar();
+            }
+
+            historyPanel.classList.toggle("open", willOpenHistory);
+        });
+
+        editBtn.addEventListener("click", function () {
+            const nextMode = !sidebar.classList.contains("editing");
+            setSidebarEditMode(nextMode);
+        });
+
+        window.addEventListener("resize", function () {
+            if (!sidebar.classList.contains("show")) {
+                return;
+            }
+            positionSidebar();
+        });
+
+        function updateComposeActionState() {
+            const hasText = input.value.trim().length > 0;
+            composeActionBtn.classList.toggle("is-send", hasText);
+            composeActionBtn.setAttribute("aria-label", hasText ? "Send message" : "Voice input");
+        }
+
+        input.addEventListener("input", updateComposeActionState);
+        promptForm.addEventListener("submit", function (event) {
+            if (!input.value.trim()) {
+                event.preventDefault();
+            }
+        });
+
+        setSidebarEditMode(false);
+        updateComposeActionState();
     </script>
     
 </body>
