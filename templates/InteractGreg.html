@@ -4,7 +4,6 @@
     <title>InteractGreg</title>
     <link rel="stylesheet" href="../static/InteractGreg.css">
 </head>
-
 <body>
     <main class="page">
         <header class="top-row">
@@ -73,15 +72,43 @@
             </div>
         </header>
 
-        <div class="layout">
-            <div class="chat-area">
-                <div class="question">How is the weather today?</div>
+        <h2 class="weather-forecast">Kuching Weather Forecast Today</h2>
 
-                <div class="response-box">
-                    <div class="ai-text">
-                        <p>In Kuching, it's 24&deg;C and mostly cloudy tonight. Today's high was 31&deg;C with scattered thunderstorms and 85% chance of rain. Harvest Warning: High humidity (94%) and rain make for poor harvesting conditions; watch for ear rot and ensure you can dry any corn you pick immediately.</p>
-                    </div>
-                </div>
+        <section class="chat-block">
+            <div class="chat-container" id="chat-container">
+                {% if question %}
+                    <div class="message user-message">{{ question }}</div>
+                {% endif %}
+                {% if answer %}
+                    <div class="message ai-message">{{ answer }}</div>
+                {% endif %}
+            </div>
+
+            <div class="prompt-bar">
+                <button class="icon-btn" type="button" aria-label="Attach file">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
+                    </svg>
+                </button>
+                <input id="chat-input" type="text" placeholder="Ask Anything!" />
+                <button class="mic icon-btn" aria-label="Voice input" type="button">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="9" y="3" width="6" height="11" rx="3"></rect>
+                        <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
+                    </svg>
+                </button>
+            </div>
+        </section>
+            </div>
+
+        <!-- History Sidebar -->
+        <aside id="history-panel" class="history-panel">
+
+            <h3 class="history-title">History</h3>
+
+            <div class="history-item">
+                Chitchat Scenario
+            </div>
 
                 <section class="chat-block">
                     <div class="prompt-bar">
@@ -112,6 +139,51 @@
             </aside>
         </div>
     </main>
+
+<script>
+async function askAI(question) {
+    const chatContainer = document.getElementById("chat-container");
+
+    const userBubble = document.createElement("div");
+    userBubble.className = "message user-message";
+    userBubble.textContent = question;
+    chatContainer.appendChild(userBubble);
+
+    const typingBubble = document.createElement("div");
+    typingBubble.className = "message typing-indicator";
+    typingBubble.innerHTML = "<span></span><span></span><span></span>";
+    chatContainer.appendChild(typingBubble);
+
+    const response = await fetch("/chatbot-conversations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: question })
+    });
+
+    const data = await response.json();
+
+    // Replace typing indicator with AI reply
+    typingBubble.className = "message ai-message";
+    typingBubble.textContent = data.reply;
+}
+
+const input = document.getElementById("chat-input");
+input.addEventListener("keypress", function(event) {
+    if (event.key === "Enter" && input.value.trim() !== "") {
+        askAI(input.value.trim());
+        input.value = "";
+    }
+});
+</script>
+
+const menuBtn = document.getElementById("menu-btn");
+const historyPanel = document.getElementById("history-panel");
+
+menuBtn.addEventListener("click", function () {
+    historyPanel.classList.toggle("open");
+});
+
+</script>
 
     <script>
         const menuBtn = document.getElementById("menu-btn");
