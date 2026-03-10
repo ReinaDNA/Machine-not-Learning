@@ -100,7 +100,14 @@ def ask_ai():
     answer = get_chatbot_response(question)
 
     return jsonify({"reply": answer})
-    
+
+@app.route("/pre_setup", methods = ["GET"])
+def pre_setup():
+    return render_template("pre_setup.html")
+
+@app.route("/profile", methods = ["GET"])  
+def profile():
+    return render_template("profile.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
