@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="prompt-bar">
-                        <button class="icon-btn" type="button" aria-label="Attach file">
+                        <button class="icon-btn" id="attach-btn" type="button">
                             <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
                             </svg>
@@ -103,6 +103,29 @@
                                 <path d="M22 2 15 22 11 13 2 9 22 2z"></path>
                             </svg>
                         </button>
+
+                        <div class="file-menu" id="file-menu">
+
+                        <div class="file-path">
+                            <span class="file-icon">📄</span>
+                            <input type="text" value="C:\Users\User\Desktop">
+                        </div>
+
+                        <div class="file-item">
+    <div class="file-circle">
+        <img src="../static/image/pdf.png" alt="PDF file">
+    </div>
+    <span>mylittlepony.pdf</span>
+</div>
+
+<div class="file-item">
+    <div class="file-circle">
+        <img src="../static/image/doc.png" alt="DOC file">
+    </div>
+    <span>buggati.docx</span>
+</div>
+
+                    </div>
                     </div>
                 </div>
             </section>
@@ -125,6 +148,8 @@
         const chatInput = document.getElementById("chat-input");
         const composeActionBtn = document.getElementById("compose-action-btn");
         const chatContainer = document.getElementById("chat-container");
+        const attachBtn = document.getElementById("attach-btn");
+        const fileMenu = document.getElementById("file-menu");
 
         function closeReviewSidebar() {
             const page = document.querySelector(".page");
@@ -256,6 +281,12 @@
 
         setSidebarEditMode(false);
         updateComposeActionState();
+
+        attachBtn.addEventListener("click", () => {
+
+    fileMenu.classList.toggle("show");
+
+});
     </script>
 </body>
 </html>
