@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>InteractGreg</title>
@@ -14,7 +14,7 @@
 
             <div class="top-actions">
                 <div class="review-menu">
-                    <button class="ai" id="review-logo-btn" aria-label="AI assistant" onclick="toggleSidebar()">
+                    <button class="ai" id="review-logo-btn" aria-label="AI assistant" type="button" onclick="toggleSidebar()">
                         <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
                     </button>
 
@@ -72,52 +72,27 @@
             </div>
         </header>
 
-        <h2 class="weather-forecast">Kuching Weather Forecast Today</h2>
+        <div class="layout">
+            <section class="chat-area">
+                <h2 class="weather-forecast">Kuching Weather Forecast Today</h2>
 
-        <section class="chat-block">
-            <div class="chat-container" id="chat-container">
-                {% if question %}
-                    <div class="message user-message">{{ question }}</div>
-                {% endif %}
-                {% if answer %}
-                    <div class="message ai-message">{{ answer }}</div>
-                {% endif %}
-            </div>
+                <div class="chat-block">
+                    <div class="chat-container" id="chat-container">
+                        {% if question %}
+                            <div class="message user-message">{{ question }}</div>
+                        {% endif %}
+                        {% if answer %}
+                            <div class="message ai-message">{{ answer }}</div>
+                        {% endif %}
+                    </div>
 
-            <div class="prompt-bar">
-                <button class="icon-btn" type="button" aria-label="Attach file">
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
-                    </svg>
-                </button>
-                <input id="chat-input" type="text" placeholder="Ask Anything!" />
-                <button class="mic icon-btn" aria-label="Voice input" type="button">
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="9" y="3" width="6" height="11" rx="3"></rect>
-                        <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
-                    </svg>
-                </button>
-            </div>
-        </section>
-            </div>
-
-        <!-- History Sidebar -->
-        <aside id="history-panel" class="history-panel">
-
-            <h3 class="history-title">History</h3>
-
-            <div class="history-item">
-                Chitchat Scenario
-            </div>
-
-                <section class="chat-block">
                     <div class="prompt-bar">
                         <button class="icon-btn" type="button" aria-label="Attach file">
                             <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
                             </svg>
                         </button>
-                        <input id="chat-input" type="text" placeholder="Ask Anything!" />
+                        <input id="chat-input" type="text" placeholder="Ask Anything!">
                         <button id="compose-action-btn" class="mic icon-btn" aria-label="Voice input" type="button">
                             <svg class="icon-svg mic-icon" viewBox="0 0 24 24" aria-hidden="true">
                                 <rect x="9" y="3" width="6" height="11" rx="3"></rect>
@@ -129,8 +104,8 @@
                             </svg>
                         </button>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
 
             <aside id="history-panel" class="history-panel">
                 <h3 class="history-title">History</h3>
@@ -139,51 +114,6 @@
             </aside>
         </div>
     </main>
-
-<script>
-async function askAI(question) {
-    const chatContainer = document.getElementById("chat-container");
-
-    const userBubble = document.createElement("div");
-    userBubble.className = "message user-message";
-    userBubble.textContent = question;
-    chatContainer.appendChild(userBubble);
-
-    const typingBubble = document.createElement("div");
-    typingBubble.className = "message typing-indicator";
-    typingBubble.innerHTML = "<span></span><span></span><span></span>";
-    chatContainer.appendChild(typingBubble);
-
-    const response = await fetch("/chatbot-conversations", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: question })
-    });
-
-    const data = await response.json();
-
-    // Replace typing indicator with AI reply
-    typingBubble.className = "message ai-message";
-    typingBubble.textContent = data.reply;
-}
-
-const input = document.getElementById("chat-input");
-input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter" && input.value.trim() !== "") {
-        askAI(input.value.trim());
-        input.value = "";
-    }
-});
-</script>
-
-const menuBtn = document.getElementById("menu-btn");
-const historyPanel = document.getElementById("history-panel");
-
-menuBtn.addEventListener("click", function () {
-    historyPanel.classList.toggle("open");
-});
-
-</script>
 
     <script>
         const menuBtn = document.getElementById("menu-btn");
@@ -194,9 +124,28 @@ menuBtn.addEventListener("click", function () {
         const editableFields = document.querySelectorAll("[data-editable='true']");
         const chatInput = document.getElementById("chat-input");
         const composeActionBtn = document.getElementById("compose-action-btn");
+        const chatContainer = document.getElementById("chat-container");
+
+        function closeReviewSidebar() {
+            const page = document.querySelector(".page");
+            sidebar.classList.remove("show");
+            page.classList.remove("sidebar-open");
+            reviewBtn.classList.remove("active");
+            setSidebarEditMode(false);
+        }
+
+        function closeHistoryPanel() {
+            historyPanel.classList.remove("open");
+        }
 
         menuBtn.addEventListener("click", function () {
-            historyPanel.classList.toggle("open");
+            const willOpenHistory = !historyPanel.classList.contains("open");
+
+            if (willOpenHistory) {
+                closeReviewSidebar();
+            }
+
+            historyPanel.classList.toggle("open", willOpenHistory);
         });
 
         function positionSidebar() {
@@ -226,16 +175,21 @@ menuBtn.addEventListener("click", function () {
 
         function toggleSidebar() {
             const page = document.querySelector(".page");
+            const willOpenSidebar = !sidebar.classList.contains("show");
+
+            if (willOpenSidebar) {
+                closeHistoryPanel();
+            }
+
             const isOpen = sidebar.classList.toggle("show");
             page.classList.toggle("sidebar-open", isOpen);
             reviewBtn.classList.toggle("active", isOpen);
 
             if (isOpen) {
                 positionSidebar();
-                setSidebarEditMode(false);
-            } else {
-                setSidebarEditMode(false);
             }
+
+            setSidebarEditMode(false);
         }
 
         window.addEventListener("resize", function () {
@@ -251,13 +205,53 @@ menuBtn.addEventListener("click", function () {
             composeActionBtn.setAttribute("aria-label", hasText ? "Send message" : "Voice input");
         }
 
+        async function askAI(question) {
+            const userBubble = document.createElement("div");
+            userBubble.className = "message user-message";
+            userBubble.textContent = question;
+            chatContainer.appendChild(userBubble);
+
+            const typingBubble = document.createElement("div");
+            typingBubble.className = "message typing-indicator";
+            typingBubble.innerHTML = "<span></span><span></span><span></span>";
+            chatContainer.appendChild(typingBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            const response = await fetch("/chatbot-conversations", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question: question })
+            });
+
+            const data = await response.json();
+            typingBubble.className = "message ai-message";
+            typingBubble.textContent = data.reply;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
         chatInput.addEventListener("input", updateComposeActionState);
+        chatInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter" && chatInput.value.trim() !== "") {
+                const question = chatInput.value.trim();
+                chatInput.value = "";
+                updateComposeActionState();
+                askAI(question);
+            }
+        });
+
         composeActionBtn.addEventListener("click", function () {
             if (!composeActionBtn.classList.contains("is-send")) {
                 return;
             }
+
+            const question = chatInput.value.trim();
+            if (!question) {
+                return;
+            }
+
             chatInput.value = "";
             updateComposeActionState();
+            askAI(question);
         });
 
         setSidebarEditMode(false);

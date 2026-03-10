@@ -5,7 +5,7 @@
     --card: #2f2e66;
     --card-deep: #23224f;
     --panel: rgba(255, 255, 255, 0.08);
-    --review-sidebar-space: 390px;
+    --review-sidebar-space: 200px;
 }
 
 * {
@@ -501,6 +501,8 @@ white-space: nowrap;
 .layout{
 display:flex;
 position:relative;
+align-items:flex-start;
+gap: 24px;
 transition: padding-right 0.3s ease;
 }
 
@@ -512,11 +514,14 @@ padding-right: var(--review-sidebar-space);
 
 .chat-area{
 flex:1;
-transition:0.3s;
+min-width: 0;
+max-width: 100%;
+transition: max-width 0.3s ease, margin-right 0.3s ease;
 }
 
 .page.sidebar-open .chat-area{
-margin-right: 24px;
+    max-width: calc(100% - var(--review-sidebar-space));
+    margin-right: 10px;
 }
 
 /* Interaction layer: hover, active, focus, and stronger shadows */
