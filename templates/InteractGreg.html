@@ -74,7 +74,7 @@
 
         <div class="layout">
             <section class="chat-area">
-                <h2 class="weather-forecast">Kuching Weather Forecast Today</h2>
+                <h2 id="chat-title" class="weather-forecast">Kuching Weather Forecast Today</h2>
 
                 <div class="chat-block">
                     <div class="chat-container" id="chat-container">
@@ -131,9 +131,25 @@
             </section>
 
             <aside id="history-panel" class="history-panel">
+
+            <div class="sidebar-nav">
+                <a class="nav-item" href="{{url_for('home')}}">Home</a>
+                <a class="nav-item" href="{{url_for('chatbot')}}">Ask AI</a>
+                <a class="nav-item" href="{{url_for('profile')}}">Profile</a>
+            </div>
+
+            <div class="sidebar-history">
                 <h3 class="history-title">History</h3>
+
+                <div class="history-item">Kuching Weather Forecast Today</div>
                 <div class="history-item">Chitchat Scenario</div>
-                <div class="history-search">Kuching Weather Forecast Today</div>
+                <div class="history-item">Corn Planting Advice</div>
+                <div class="history-item">Carrot Soil Requirement</div>
+            </div>
+
+                <div class="sidebar-bottom">
+                    <a class="logout-btn" href="{{url_for('pre_setup')}}">Log Out</a>
+                </div>
             </aside>
         </div>
     </main>
@@ -281,6 +297,14 @@
 
         setSidebarEditMode(false);
         updateComposeActionState();
+
+        const historyItems = document.querySelectorAll(".history-item");
+        const chatTitle = document.getElementById("chat-title");
+            historyItems.forEach(item => {
+            item.addEventListener("click", () => {
+            chatTitle.textContent = item.textContent;
+            });
+        });
 
         attachBtn.addEventListener("click", () => {
 
