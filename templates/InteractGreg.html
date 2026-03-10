@@ -1,22 +1,58 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>InteractGreg</title>
     <link rel="stylesheet" href="../static/InteractGreg.css">
 </head>
-
 <body>
     <main class="page">
         <header class="top-row">
-            <div class="brand">
+            <a class="brand" href="{{url_for('home')}}">
                 <img class="brand-logo" src="../static/image/brandlogo.png" alt="GregHarvest AI logo">
                 <h1 class="title">GregHarvest.</h1>
-            </div>
+            </a>
 
             <div class="top-actions">
-                <button class="ai" aria-label="AI assistant">
-                    <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
-                </button>
+                <div class="review-menu">
+                    <button class="ai" id="review-logo-btn" aria-label="AI assistant" type="button" onclick="toggleSidebar()">
+                        <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
+                    </button>
+
+                    <aside class="sidebar" id="sidebar" aria-label="Review details sidebar">
+                        <div class="sidebar-top">
+                            <button class="edit-btn" id="edit-sidebar-btn" type="button" aria-label="Enable edit mode" aria-pressed="false">
+                                <img class="edit-icon-img" src="../static/image/edit.png" alt="Edit icon">
+                            </button>
+                        </div>
+
+                        <h3>Location</h3>
+                        <div class="field editable-text" data-editable="true" contenteditable="false" spellcheck="false">Kuching, Sarawak</div>
+
+                        <h3>Land Size</h3>
+                        <div class="land-size">
+                            <div class="size-box editable-text" data-editable="true" contenteditable="false" spellcheck="false">30</div>
+                            <span>x</span>
+                            <div class="size-box editable-text" data-editable="true" contenteditable="false" spellcheck="false">30</div>
+                            <span>m</span>
+                        </div>
+
+                        <h3>Crops</h3>
+                        <div class="crop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Corn</span>
+                        </div>
+                        <div class="crop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Carrot</span>
+                        </div>
+                        <div class="crop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Apple</span>
+                            <span class="warning-wrap">
+                                <span class="warning" aria-label="Warning" tabindex="0">!</span>
+                                <span class="note" role="tooltip">May be hard to plant in this environment. Please pay attention to A.I.'s suggestions.</span>
+                            </span>
+                        </div>
+                    </aside>
+                </div>
+
                 <div class="action-pill">
                     <button id="menu-btn" class="pill-btn" aria-label="More options" type="button">
                         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -26,7 +62,7 @@
                         </svg>
                     </button>
                     <span class="pill-divider"></span>
-                    <button class="pill-btn" aria-label="Profile" type="button">
+                    <button class="pill-btn" aria-label="Profile" type="button" onclick="window.location.href='/profile'">
                         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                             <circle cx="12" cy="8" r="4"></circle>
                             <path d="M4 20a8 8 0 0 1 16 0"></path>
@@ -37,68 +73,244 @@
         </header>
 
         <div class="layout">
+            <section class="chat-area">
+                <h2 id="chat-title" class="weather-forecast">Kuching Weather Forecast Today</h2>
 
-            <div class="chat-area">
+                <div class="chat-block">
+                    <div class="chat-container" id="chat-container">
+                        {% if question %}
+                            <div class="message user-message">{{ question }}</div>
+                        {% endif %}
+                        {% if answer %}
+                            <div class="message ai-message">{{ answer }}</div>
+                        {% endif %}
+                    </div>
 
-        <div class="question">How is the weather today?</div>
+                    <div class="prompt-bar">
+                        <button class="icon-btn" id="attach-btn" type="button">
+                            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
+                            </svg>
+                        </button>
+                        <input id="chat-input" type="text" placeholder="Ask Anything!">
+                        <button id="compose-action-btn" class="mic icon-btn" aria-label="Voice input" type="button">
+                            <svg class="icon-svg mic-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="9" y="3" width="6" height="11" rx="3"></rect>
+                                <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
+                            </svg>
+                            <svg class="icon-svg send-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 2 11 13"></path>
+                                <path d="M22 2 15 22 11 13 2 9 22 2z"></path>
+                            </svg>
+                        </button>
 
-        <div class="response-box">
+                        <div class="file-menu" id="file-menu">
 
-        <div class="ai-text">
-            <p>In Kuching, it's 24°C and mostly cloudy tonight. Today’s high was 31°C with scattered thunderstorms and 85% chance of rain.
-Harvest Warning: High humidity (94%) and rain make for poor harvesting conditions; watch for ear rot and ensure you can dry any corn you pick immediately.</p>
+                        <div class="file-path">
+                            <span class="file-icon">📄</span>
+                            <input type="text" value="C:\Users\User\Desktop">
+                        </div>
+
+                        <div class="file-item">
+    <div class="file-circle">
+        <img src="../static/image/pdf.png" alt="PDF file">
+    </div>
+    <span>mylittlepony.pdf</span>
+</div>
+
+<div class="file-item">
+    <div class="file-circle">
+        <img src="../static/image/docx.png" alt="DOC file">
+    </div>
+    <span>buggati.docx</span>
+</div>
+
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside id="history-panel" class="history-panel">
+
+            <div class="sidebar-nav">
+                <a class="nav-item" href="{{url_for('home')}}">Home</a>
+                <a class="nav-item" href="{{url_for('chatbot')}}">Ask AI</a>
+                <a class="nav-item" href="{{url_for('profile')}}">Profile</a>
+            </div>
+
+            <div class="sidebar-history">
+                <h3 class="history-title">History</h3>
+
+                <div class="history-item">Kuching Weather Forecast Today</div>
+                <div class="history-item">Chitchat Scenario</div>
+                <div class="history-item">Corn Planting Advice</div>
+                <div class="history-item">Carrot Soil Requirement</div>
+            </div>
+
+                <div class="sidebar-bottom">
+                    <a class="logout-btn" href="{{url_for('pre_setup')}}">Log Out</a>
+                </div>
+            </aside>
         </div>
-            
-        </div>
-
-        <!--Input Bar--> 
-        <section class="chat-block">
-            <div class="prompt-bar">
-                <button class="icon-btn" type="button" aria-label="Attach file">
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
-                    </svg>
-                </button>
-                <input id="chat-input" type="text" placeholder="Ask Anything!" />
-                <button class="mic icon-btn" aria-label="Voice input" type="button">
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="9" y="3" width="6" height="11" rx="3"></rect>
-                        <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
-                    </svg>
-                </button>
-            </div>
-
-        </section>
-            </div>
-
-        <!-- History Sidebar -->
-        <aside id="history-panel" class="history-panel">
-
-            <h3 class="history-title">History</h3>
-
-            <div class="history-item">
-                Chitchat Scenario
-            </div>
-
-            <div class="history-search">
-                Kuching Weather Forecast Today
-            </div>
-
-        </aside>
-        </div>
-
     </main>
 
-<script>
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const historyPanel = document.getElementById("history-panel");
+        const sidebar = document.getElementById("sidebar");
+        const reviewBtn = document.getElementById("review-logo-btn");
+        const editBtn = document.getElementById("edit-sidebar-btn");
+        const editableFields = document.querySelectorAll("[data-editable='true']");
+        const chatInput = document.getElementById("chat-input");
+        const composeActionBtn = document.getElementById("compose-action-btn");
+        const chatContainer = document.getElementById("chat-container");
+        const attachBtn = document.getElementById("attach-btn");
+        const fileMenu = document.getElementById("file-menu");
 
-const menuBtn = document.getElementById("menu-btn");
-const historyPanel = document.getElementById("history-panel");
+        function closeReviewSidebar() {
+            const page = document.querySelector(".page");
+            sidebar.classList.remove("show");
+            page.classList.remove("sidebar-open");
+            reviewBtn.classList.remove("active");
+            setSidebarEditMode(false);
+        }
 
-menuBtn.addEventListener("click", function () {
-    historyPanel.classList.toggle("open");
+        function closeHistoryPanel() {
+            historyPanel.classList.remove("open");
+        }
+
+        menuBtn.addEventListener("click", function () {
+            const willOpenHistory = !historyPanel.classList.contains("open");
+
+            if (willOpenHistory) {
+                closeReviewSidebar();
+            }
+
+            historyPanel.classList.toggle("open", willOpenHistory);
+        });
+
+        function positionSidebar() {
+            const reviewRect = reviewBtn.getBoundingClientRect();
+            sidebar.style.top = `${reviewRect.bottom + 12}px`;
+        }
+
+        function setSidebarEditMode(isEditing) {
+            sidebar.classList.toggle("editing", isEditing);
+            editBtn.setAttribute("aria-pressed", String(isEditing));
+            editBtn.setAttribute("aria-label", isEditing ? "Disable edit mode" : "Enable edit mode");
+
+            editableFields.forEach(function (field) {
+                field.setAttribute("contenteditable", isEditing ? "true" : "false");
+                field.setAttribute("aria-readonly", String(!isEditing));
+            });
+
+            if (isEditing && editableFields.length > 0) {
+                editableFields[0].focus();
+            }
+        }
+
+        editBtn.addEventListener("click", function () {
+            const nextMode = !sidebar.classList.contains("editing");
+            setSidebarEditMode(nextMode);
+        });
+
+        function toggleSidebar() {
+            const page = document.querySelector(".page");
+            const willOpenSidebar = !sidebar.classList.contains("show");
+
+            if (willOpenSidebar) {
+                closeHistoryPanel();
+            }
+
+            const isOpen = sidebar.classList.toggle("show");
+            page.classList.toggle("sidebar-open", isOpen);
+            reviewBtn.classList.toggle("active", isOpen);
+
+            if (isOpen) {
+                positionSidebar();
+            }
+
+            setSidebarEditMode(false);
+        }
+
+        window.addEventListener("resize", function () {
+            if (!sidebar.classList.contains("show")) {
+                return;
+            }
+            positionSidebar();
+        });
+
+        function updateComposeActionState() {
+            const hasText = chatInput.value.trim().length > 0;
+            composeActionBtn.classList.toggle("is-send", hasText);
+            composeActionBtn.setAttribute("aria-label", hasText ? "Send message" : "Voice input");
+        }
+
+        async function askAI(question) {
+            const userBubble = document.createElement("div");
+            userBubble.className = "message user-message";
+            userBubble.textContent = question;
+            chatContainer.appendChild(userBubble);
+
+            const typingBubble = document.createElement("div");
+            typingBubble.className = "message typing-indicator";
+            typingBubble.innerHTML = "<span></span><span></span><span></span>";
+            chatContainer.appendChild(typingBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            const response = await fetch("/chatbot-conversations", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question: question })
+            });
+
+            const data = await response.json();
+            typingBubble.className = "message ai-message";
+            typingBubble.textContent = data.reply;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        chatInput.addEventListener("input", updateComposeActionState);
+        chatInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter" && chatInput.value.trim() !== "") {
+                const question = chatInput.value.trim();
+                chatInput.value = "";
+                updateComposeActionState();
+                askAI(question);
+            }
+        });
+
+        composeActionBtn.addEventListener("click", function () {
+            if (!composeActionBtn.classList.contains("is-send")) {
+                return;
+            }
+
+            const question = chatInput.value.trim();
+            if (!question) {
+                return;
+            }
+
+            chatInput.value = "";
+            updateComposeActionState();
+            askAI(question);
+        });
+
+        setSidebarEditMode(false);
+        updateComposeActionState();
+
+        const historyItems = document.querySelectorAll(".history-item");
+        const chatTitle = document.getElementById("chat-title");
+            historyItems.forEach(item => {
+            item.addEventListener("click", () => {
+            chatTitle.textContent = item.textContent;
+            });
+        });
+
+        attachBtn.addEventListener("click", () => {
+
+    fileMenu.classList.toggle("show");
+
 });
-
-</script>
-
+    </script>
 </body>
 </html>

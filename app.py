@@ -62,10 +62,15 @@ def home():
         dew_point=dew_point
     )
 
-@app.route("/chatbot", methods=["POST", "GET"])
+@app.route("/chatbot", methods=["GET", "POST"])
 def chatbot():
     question = request.args.get("question")
-    return render_template("InteractGreg.html", question=question)
+    answer = None
+    
+    if question:
+        answer = get_chatbot_response(question)
+
+    return render_template("InteractGreg.html", question=question, answer=answer)
 
 def get_chatbot_response(question):
     conversation.append(
@@ -95,7 +100,14 @@ def ask_ai():
     answer = get_chatbot_response(question)
 
     return jsonify({"reply": answer})
-    
+
+@app.route("/pre_setup", methods = ["GET"])
+def pre_setup():
+    return render_template("pre_setup.html")
+
+@app.route("/profile", methods = ["GET"])  
+def profile():
+    return render_template("profile.html")
 
 @app.route("/login", methods=["GET"])
 def login():
