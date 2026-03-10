@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Elementals</title>
+    <title>InteractGreg</title>
     <link rel="stylesheet" href="../static/InteractGreg.css">
 </head>
 
@@ -9,21 +9,16 @@
     <main class="page">
         <header class="top-row">
             <div class="brand">
-                <div class="logo-grid" aria-hidden="true">
-                    <span class="dot red"></span>
-                    <span class="dot green"></span>
-                    <span class="dot blue"></span>
-                    <span class="dot yellow"></span>
-                </div>
-                <h1 class="title">Elementals.</h1>
+                <img class="brand-logo" src="../static/image/brandlogo.png" alt="GregHarvest AI logo">
+                <h1 class="title">GregHarvest.</h1>
             </div>
 
             <div class="top-actions">
                 <button class="ai" aria-label="AI assistant">
-                    <img src="./image/ailogo.png" alt="AI logo">
+                    <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
                 </button>
                 <div class="action-pill">
-                    <button class="pill-btn" aria-label="More options" type="button">
+                    <button id="menu-btn" class="pill-btn" aria-label="More options" type="button">
                         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                             <circle cx="12" cy="5" r="2"></circle>
                             <circle cx="12" cy="12" r="2"></circle>
@@ -41,95 +36,22 @@
             </div>
         </header>
 
-        <h2 class="weather-forecast">Kuching Weather Forecast Today</h2>
+        <div class="layout">
+
+            <div class="chat-area">
 
         <div class="question">How is the weather today?</div>
 
-        <section class="response-section">
+        <div class="response-box">
 
-            <div class="response-box">
+        <div class="ai-text">
+            <p>In Kuching, it's 24°C and mostly cloudy tonight. Today’s high was 31°C with scattered thunderstorms and 85% chance of rain.
+Harvest Warning: High humidity (94%) and rain make for poor harvesting conditions; watch for ear rot and ensure you can dry any corn you pick immediately.</p>
+        </div>
+            
+        </div>
 
-                <section class="weather-card">
-
-                    <!-- Location + Day -->
-                    <div class="weather-top">
-                        <p class="weather-location">
-                            <span id="weather-day"></span> 
-                            <span id="weather-location"></span>
-                        </p>
-                    </div>
-
-                    <!-- Main Weather -->
-                    <div class="weather-main">
-
-                        <!-- Weather Icon -->
-                        <span class="weather-icon" id="weather-icon"></span>
-
-                        <div class="temp-section">
-
-                            <!-- Temperature -->
-                            <p class="temperature">
-                                <span id="weather-temp"></span>
-                                <span class="unit">°C</span>
-                                <span class="divider">|</span>
-                                <span class="unit-alt">°F</span>
-                            </p>
-
-                            <!-- Weather Status -->
-                            <p class="weather-status" id="weather-status"></p>
-
-                            <!-- High / Low / Precip -->
-                            <p class="weather-range">
-                                High: <span id="weather-high"></span>°
-                                Low: <span id="weather-low"></span>°
-                                Precip: <span id="weather-precip"></span>%
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Tabs -->
-                    <div class="weather-tabs">
-
-                        <button class="tab active" id="tab-temp">
-                            Temperature
-                        </button>
-
-                        <button class="tab" id="tab-precip">
-                            Precipitation
-                        </button>
-
-                        <button class="tab" id="tab-wind">
-                            Wind
-                        </button>
-
-                    </div>
-
-                    <!-- Hourly Forecast Container -->
-                    <div class="weather-hourly" id="weather-hourly">
-                        <!-- Backend will generate hour blocks here -->
-                    </div>
-
-                </section>
-    
-
-                <div class="ai-text">
-
-                        <p>
-                        In Kuching, it's 24°C and mostly cloudy tonight. Today’s high was 31°C with scattered thunderstorms and 85% chance of rain.
-                        </p>
-
-                        <p>
-                        Harvest Warning: High humidity (94%) and rain make for poor harvesting conditions; watch for ear rot and ensure you can dry any corn you pick immediately.
-                        </p>
-                            
-                </div>
-
-            </div>
-
-        </section>
-
+        <!--Input Bar--> 
         <section class="chat-block">
             <div class="prompt-bar">
                 <button class="icon-btn" type="button" aria-label="Attach file">
@@ -146,8 +68,37 @@
                 </button>
             </div>
 
-            <div class="suggestions" id="suggestions-container"></div>
         </section>
+            </div>
+
+        <!-- History Sidebar -->
+        <aside id="history-panel" class="history-panel">
+
+            <h3 class="history-title">History</h3>
+
+            <div class="history-item">
+                Chitchat Scenario
+            </div>
+
+            <div class="history-search">
+                Kuching Weather Forecast Today
+            </div>
+
+        </aside>
+        </div>
+
     </main>
+
+<script>
+
+const menuBtn = document.getElementById("menu-btn");
+const historyPanel = document.getElementById("history-panel");
+
+menuBtn.addEventListener("click", function () {
+    historyPanel.classList.toggle("open");
+});
+
+</script>
+
 </body>
 </html>

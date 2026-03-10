@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pre-Setup</title>
+        <link rel="stylesheet" href="/static/pre-setup.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="brand">
+                <img class="greg-pic" src="image/ailogo.png">
+                <h1 class="title">GregHarvest</h1>
+        </div>
+
+    <br></br>
+                
+    <div class="left">
+
+        <div class="greg-profile">
+            <p class="greg-talks">Let's do a quick check before we start.</p>
+        </div>
+
+        <div class="content-block">
+            <div class="location">
+                <p>Location</p>
+                <input class="input-location" type="text" placeholder="Enter Location">
+            </div>
+            <div>
+            <div class="land-size">
+                <p>Land size</p>
+                <input class="input-height" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder="Height">
+                <span class="multiply">&times</span>
+                <input class="input-width" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder="Width">
+                <span class="unit">m</span>
+            </div>
+            </div>
+            <div class="props-marketprice">
+                <div class="column">
+                    <p>Props</p>
+                    <div class="props-row">
+                    <span class="list-icon">&#9776;</span>
+                    <input class="input-props" type="text" placeholder="e.g. Corn">
+                    </div>
+                    <div class="props-row">
+                    <span class="list-icon">&#9776;</span>
+                    <input class="input-props" type="text" placeholder="e.g. Corn">
+                    </div>
+                    <div class="props-row">
+                    <span class="list-icon">&#9776;</span>
+                    <input class="input-props" type="text" placeholder="e.g. Corn">
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="market-price">
+                    <p class="market-title">Market Price</p>
+                    <select class="price-unit" name="fruits">
+                    <option value="Ringgit">RM</option>
+                    <option value="Singapore Dollar">SGR</option> // 叫新加坡人来马来西亚做外劳
+                    <option value="United States Dollar">USD</option>
+                    </select>
+                    </div>
+                    <div class="adjust-price">
+                    <input class="input-price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
+                    <input class="input-price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
+                    <input class="input-price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="right">
+            <button>Submit</button>
+        </div>
+        <p class="footer">GregAi can make mistakes. Check important info.</p>
+    </body>
+</html>
