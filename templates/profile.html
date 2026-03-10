@@ -50,25 +50,25 @@
         <section class="profile-card">
             <div class="col left">
                 <h3>Name</h3>
-                <p class="field">--</p>
+                <p class="field">{{customer["name"]}}</p>
 
                 <h3>Email</h3>
-                <p class="field">--</p>
+                <p class="field">{{customer["email"]}}</p>
 
                 <h3>Location</h3>
-                <p class="field">--</p>
+                <p class="field">{{customer["location"]}}</p>
 
                 <h3>Version</h3>
-                <p class="version">--</p>
+                <p class="version">GregHarvest 1.0</p>
             </div>
 
             <div class="col middle">
                 <h3>Land Size</h3>
                 <div class="size-row">
-                    <span class="mini-field">--</span>
+                    <span class="mini-field">{{customer["length"]}}</span>
                     <span>x</span>
-                    <span class="mini-field">--</span>
-                    <span>--</span>
+                    <span class="mini-field">{{customer["width"]}}</span>
+                    <span>m</span>
                 </div>
 
                 <h3 class="map-title">Grid View</h3>
@@ -107,15 +107,17 @@
                     <div class="currency-wrap">
                         <label class="sr-only" for="sea-currency">Currency</label>
                         <select class="currency" id="sea-currency" name="sea_currency">
-                            <option value="" selected>--</option>
+                            <option value="" selected>{{customer["currency"]}}</option>
                         </select>
                         <span class="currency-caret" aria-hidden="true">v</span>
                     </div>
                 </div>
 
                 <div class="pill-list">
-                    <p class="list-pill"><span>--</span><span class="value">--</span></p>
-                    <p class="list-pill"><span>--</span><span class="value">--</span></p>
+                    {% for crop, price in combined %}
+
+                        <p class="list-pill"><span>{{ crop }}</span><span class="value">{{ price }}</span></p>
+                    {% endfor %}
                     <p class="list-pill warn">
                         <span>--</span>
                         <svg class="warning" viewBox="0 0 24 24" aria-hidden="true">
@@ -138,14 +140,18 @@
 
         <p class="foot-note">--</p>
     </main>
+    <script id="allocation-data" type="application/json">
+        {{ suggestion | tojson }}
+    </script>
+
     <script>
         (function () {
-            const plants = {
+            let plants = {
                 corn: { label: "Corn", color: "#b6ba00" },
                 carrot: { label: "Carrot", color: "#e48700" },
                 apple: { label: "Apple", color: "#c50000" }
             };
-
+  
             const activePlantSelect = document.getElementById("active-plant");
             const gridSizeSelect = document.getElementById("grid-size");
             const clearGridButton = document.getElementById("clear-grid");
@@ -226,6 +232,23 @@
                     grid.appendChild(cell);
                 }
             }
+            function prefillGrid(allocation) {
+
+                const cells = grid.querySelectorAll(".grid-cell");
+                let index = 0;
+
+                for (const plant in allocation) {
+
+                    const count = allocation[plant];
+                    for (let i = 0; i < count; i++) {
+
+                        if (index >= cells.length) return;
+
+                        paintCell(cells[index], plant);
+                        index++;
+                    }
+                }
+            }
 
             document.addEventListener("mouseup", function () {
                 isPainting = false;
@@ -267,6 +290,14 @@
             renderPlantOptions();
             renderLegend();
             buildGrid(Number(gridSizeSelect.value));
+
+           const raw = document
+            .getElementById("allocation-data")
+            .textContent
+            .trim();
+
+            const suggested = JSON.parse(JSON.parse(raw));
+            prefillGrid(suggested);
         })();
     </script>
 </body>
