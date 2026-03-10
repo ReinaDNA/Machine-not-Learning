@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Elementals</title>
+    <title>InteractGreg</title>
     <link rel="stylesheet" href="../static/InteractGreg.css">
 </head>
 <body>
     <main class="page">
         <header class="top-row">
             <div class="brand">
-                <div class="logo-grid" aria-hidden="true">
-                    <span class="dot red"></span>
-                    <span class="dot green"></span>
-                    <span class="dot blue"></span>
-                    <span class="dot yellow"></span>
-                </div>
-                <h1 class="title">Elementals.</h1>
+                <img class="brand-logo" src="../static/image/brandlogo.png" alt="GregHarvest AI logo">
+                <h1 class="title">GregHarvest.</h1>
             </div>
 
             <div class="top-actions">
                 <button class="ai" aria-label="AI assistant">
-                    <img src="./image/ailogo.png" alt="AI logo">
+                    <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
                 </button>
                 <div class="action-pill">
-                    <button class="pill-btn" aria-label="More options" type="button">
+                    <button id="menu-btn" class="pill-btn" aria-label="More options" type="button">
                         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                             <circle cx="12" cy="5" r="2"></circle>
                             <circle cx="12" cy="12" r="2"></circle>
@@ -67,6 +62,24 @@
                 </button>
             </div>
         </section>
+            </div>
+
+        <!-- History Sidebar -->
+        <aside id="history-panel" class="history-panel">
+
+            <h3 class="history-title">History</h3>
+
+            <div class="history-item">
+                Chitchat Scenario
+            </div>
+
+            <div class="history-search">
+                Kuching Weather Forecast Today
+            </div>
+
+        </aside>
+        </div>
+
     </main>
 
 <script>
@@ -104,5 +117,15 @@ input.addEventListener("keypress", function(event) {
     }
 });
 </script>
+
+const menuBtn = document.getElementById("menu-btn");
+const historyPanel = document.getElementById("history-panel");
+
+menuBtn.addEventListener("click", function () {
+    historyPanel.classList.toggle("open");
+});
+
+</script>
+
 </body>
 </html>
