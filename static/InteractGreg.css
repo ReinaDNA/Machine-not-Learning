@@ -5,6 +5,7 @@
     --card: #2f2e66;
     --card-deep: #23224f;
     --panel: rgba(255, 255, 255, 0.08);
+    --review-sidebar-space: 390px;
 }
 
 * {
@@ -59,6 +60,10 @@ body {
     gap: 24px;
 }
 
+.review-menu {
+    position: relative;
+}
+
 /* AI logo circle */
 .ai {
     width: 84px;
@@ -71,6 +76,10 @@ body {
     cursor: pointer;
 }
 
+.ai.active {
+    background: #8eaaff;
+}
+
 .review-logo{
     width: 100%;
     height: 100%;
@@ -79,6 +88,193 @@ body {
     border-radius: 50%;
     display: block;
 }
+
+.toggle-btn {
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 50%;
+    background: #d9d9d9;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .sidebar {
+    width: 0;
+    overflow: hidden;
+    background-color: #cfd7ff;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    padding: 0;
+    position: fixed;
+    top: 160px;
+    right: max(16px, calc((100vw - min(1320px, 92vw)) / 2));
+    z-index: 20;
+    flex-shrink: 0;
+  }
+
+  .sidebar.show {
+    width: 330px;
+    padding: 20px;
+  }
+
+  .sidebar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .edit-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: #88a0ff;
+    cursor: pointer;
+    font-size: 22px;
+  }
+
+  .sidebar.editing .edit-btn {
+    background: #6e8cff;
+    box-shadow: 0 0 0 2px rgba(48, 77, 182, 0.25);
+  }
+
+  .edit-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .menu-box {
+    width: 150px;
+    height: 56px;
+    border-radius: 28px;
+    background: #e7e7e7;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 24px;
+  }
+
+  .menu-pill-btn {
+    width: 56px;
+    height: 56px;
+    border: none;
+    background: transparent;
+    color: #1f1f1f;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .menu-pill-btn:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+
+  .divider {
+    width: 1px;
+    height: 24px;
+    background: #555;
+    display: inline-block;
+  }
+
+  .sidebar h3 {
+    margin: 16px 0 10px;
+    font-size: 18px;
+  }
+
+  .field {
+    background: white;
+    border-radius: 18px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 16px;
+  }
+
+  .editable-text {
+    outline: none;
+    cursor: default;
+  }
+
+  .sidebar.editing .editable-text {
+    cursor: text;
+  }
+
+  .sidebar.editing .editable-text:focus {
+    box-shadow: 0 0 0 2px rgba(71, 105, 230, 0.35);
+  }
+
+  .land-size {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .size-box {
+    width: 62px;
+    background: white;
+    border-radius: 18px;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .prop-item {
+    background: white;
+    border-radius: 18px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  .warning {
+    color: red;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: help;
+    line-height: 1;
+  }
+
+  .warning-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .note {
+    width: 220px;
+    background: white;
+    border-radius: 18px;
+    padding: 10px 12px;
+    font-size: 11px;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    transform: translateY(4px);
+    z-index: 25;
+  }
+
+  .warning-wrap:hover .note,
+  .warning-wrap:focus-within .note {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 /* Setting and Profile circle */
 .action-pill {
     min-width: 220px;
@@ -220,6 +416,23 @@ text-align: justify;
     background: #f5f5f5;
 }
 
+.send-icon {
+    display: none;
+}
+
+#compose-action-btn.is-send {
+    background: #8eaaff;
+    color: #ffffff;
+}
+
+#compose-action-btn.is-send .mic-icon {
+    display: none;
+}
+
+#compose-action-btn.is-send .send-icon {
+    display: block;
+}
+
 #chat-input {
     border: none;
     outline: none;
@@ -288,6 +501,11 @@ white-space: nowrap;
 .layout{
 display:flex;
 position:relative;
+transition: padding-right 0.3s ease;
+}
+
+.page.sidebar-open .layout{
+padding-right: var(--review-sidebar-space);
 }
 
 /* Chat area takes full width initially */
@@ -295,6 +513,10 @@ position:relative;
 .chat-area{
 flex:1;
 transition:0.3s;
+}
+
+.page.sidebar-open .chat-area{
+margin-right: 24px;
 }
 
 /* Interaction layer: hover, active, focus, and stronger shadows */

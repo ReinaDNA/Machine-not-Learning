@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>InteractGreg</title>
@@ -13,9 +13,46 @@
             </div>
 
             <div class="top-actions">
-                <button class="ai" aria-label="AI assistant">
-                    <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
-                </button>
+                <div class="review-menu">
+                    <button class="ai" id="review-logo-btn" aria-label="AI assistant" onclick="toggleSidebar()">
+                        <img class="review-logo" src="../static/image/reviewlogo.png" alt="Review logo">
+                    </button>
+
+                    <aside class="sidebar" id="sidebar" aria-label="Review details sidebar">
+                        <div class="sidebar-top">
+                            <button class="edit-btn" id="edit-sidebar-btn" type="button" aria-label="Enable edit mode" aria-pressed="false">
+                                <img class="edit-icon-img" src="../static/image/edit.png" alt="Edit icon">
+                            </button>
+                        </div>
+
+                        <h3>Location</h3>
+                        <div class="field editable-text" data-editable="true" contenteditable="false" spellcheck="false">Kuching, Sarawak</div>
+
+                        <h3>Land Size</h3>
+                        <div class="land-size">
+                            <div class="size-box editable-text" data-editable="true" contenteditable="false" spellcheck="false">30</div>
+                            <span>x</span>
+                            <div class="size-box editable-text" data-editable="true" contenteditable="false" spellcheck="false">30</div>
+                            <span>m</span>
+                        </div>
+
+                        <h3>Props</h3>
+                        <div class="prop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Corn</span>
+                        </div>
+                        <div class="prop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Carrot</span>
+                        </div>
+                        <div class="prop-item">
+                            <span class="editable-text" data-editable="true" contenteditable="false" spellcheck="false">Apple</span>
+                            <span class="warning-wrap">
+                                <span class="warning" aria-label="Warning" tabindex="0">!</span>
+                                <span class="note" role="tooltip">May be hard to plant in this environment. Please pay attention to A.I.'s suggestions.</span>
+                            </span>
+                        </div>
+                    </aside>
+                </div>
+
                 <div class="action-pill">
                     <button id="menu-btn" class="pill-btn" aria-label="More options" type="button">
                         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -73,13 +110,34 @@
                 Chitchat Scenario
             </div>
 
-            <div class="history-search">
-                Kuching Weather Forecast Today
+                <section class="chat-block">
+                    <div class="prompt-bar">
+                        <button class="icon-btn" type="button" aria-label="Attach file">
+                            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
+                            </svg>
+                        </button>
+                        <input id="chat-input" type="text" placeholder="Ask Anything!" />
+                        <button id="compose-action-btn" class="mic icon-btn" aria-label="Voice input" type="button">
+                            <svg class="icon-svg mic-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="9" y="3" width="6" height="11" rx="3"></rect>
+                                <path d="M6 10a6 6 0 0 0 12 0M12 16v5M9 21h6"></path>
+                            </svg>
+                            <svg class="icon-svg send-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 2 11 13"></path>
+                                <path d="M22 2 15 22 11 13 2 9 22 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </section>
             </div>
 
-        </aside>
+            <aside id="history-panel" class="history-panel">
+                <h3 class="history-title">History</h3>
+                <div class="history-item">Chitchat Scenario</div>
+                <div class="history-search">Kuching Weather Forecast Today</div>
+            </aside>
         </div>
-
     </main>
 
 <script>
@@ -127,5 +185,83 @@ menuBtn.addEventListener("click", function () {
 
 </script>
 
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const historyPanel = document.getElementById("history-panel");
+        const sidebar = document.getElementById("sidebar");
+        const reviewBtn = document.getElementById("review-logo-btn");
+        const editBtn = document.getElementById("edit-sidebar-btn");
+        const editableFields = document.querySelectorAll("[data-editable='true']");
+        const chatInput = document.getElementById("chat-input");
+        const composeActionBtn = document.getElementById("compose-action-btn");
+
+        menuBtn.addEventListener("click", function () {
+            historyPanel.classList.toggle("open");
+        });
+
+        function positionSidebar() {
+            const reviewRect = reviewBtn.getBoundingClientRect();
+            sidebar.style.top = `${reviewRect.bottom + 12}px`;
+        }
+
+        function setSidebarEditMode(isEditing) {
+            sidebar.classList.toggle("editing", isEditing);
+            editBtn.setAttribute("aria-pressed", String(isEditing));
+            editBtn.setAttribute("aria-label", isEditing ? "Disable edit mode" : "Enable edit mode");
+
+            editableFields.forEach(function (field) {
+                field.setAttribute("contenteditable", isEditing ? "true" : "false");
+                field.setAttribute("aria-readonly", String(!isEditing));
+            });
+
+            if (isEditing && editableFields.length > 0) {
+                editableFields[0].focus();
+            }
+        }
+
+        editBtn.addEventListener("click", function () {
+            const nextMode = !sidebar.classList.contains("editing");
+            setSidebarEditMode(nextMode);
+        });
+
+        function toggleSidebar() {
+            const page = document.querySelector(".page");
+            const isOpen = sidebar.classList.toggle("show");
+            page.classList.toggle("sidebar-open", isOpen);
+            reviewBtn.classList.toggle("active", isOpen);
+
+            if (isOpen) {
+                positionSidebar();
+                setSidebarEditMode(false);
+            } else {
+                setSidebarEditMode(false);
+            }
+        }
+
+        window.addEventListener("resize", function () {
+            if (!sidebar.classList.contains("show")) {
+                return;
+            }
+            positionSidebar();
+        });
+
+        function updateComposeActionState() {
+            const hasText = chatInput.value.trim().length > 0;
+            composeActionBtn.classList.toggle("is-send", hasText);
+            composeActionBtn.setAttribute("aria-label", hasText ? "Send message" : "Voice input");
+        }
+
+        chatInput.addEventListener("input", updateComposeActionState);
+        composeActionBtn.addEventListener("click", function () {
+            if (!composeActionBtn.classList.contains("is-send")) {
+                return;
+            }
+            chatInput.value = "";
+            updateComposeActionState();
+        });
+
+        setSidebarEditMode(false);
+        updateComposeActionState();
+    </script>
 </body>
 </html>
