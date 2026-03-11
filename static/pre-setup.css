@@ -96,7 +96,7 @@
         display: inline;
     }
 
-    .input-height, .input-width{
+    .input-length, .input-width{
         width: max-content;
     }
 
@@ -104,7 +104,7 @@
         font-weight: bold;
     }
 
-    .input-height, .input-width, .multiply, .unit, .market-price{
+    .input-length, .input-width, .multiply, .unit, .market-price{
         display: inline;
     }
 
@@ -116,7 +116,7 @@
         margin-right: 5px;
     }
 
-    .props-marketprice{
+    .crops-marketprice{
         display: flex;
         gap: 40px;
         align-items: flex-start;
@@ -125,7 +125,7 @@
         display: block;
     }
 
-    .props-row{
+    .crops-row{
         display: flex;
         align-items: center;
         background-color: white;
@@ -139,11 +139,11 @@
         transition:0.15s;
     }
 
-    .props-row:hover{
+    .crops-row:hover{
         background-color: #eaeaea;
     }
 
-    .input-props{
+    .input-crops{
         width: 250px;
         background: transparent;
         margin: 0;
@@ -230,7 +230,7 @@
     }
 
     .footer{
-        margin-top: 58px;
+        margin-top: 83px;
         margin-left: 0.5px;
         width: 100%;
         text-align: center;
