@@ -96,7 +96,7 @@
         display: inline;
     }
 
-    .input-height, .input-width{
+    .input-length, .input-width{
         width: max-content;
     }
 
@@ -104,7 +104,7 @@
         font-weight: bold;
     }
 
-    .input-height, .input-width, .multiply, .unit, .market-price{
+    .input-length, .input-width, .multiply, .unit, .market-price{
         display: inline;
     }
 
