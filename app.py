@@ -31,7 +31,7 @@ conversation = [
 
 @app.route("/")
 def home():
-    city="Kuala Lumpur"
+    city="Kuching, Sarawak"
     
     url=f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
 
@@ -39,7 +39,7 @@ def home():
     data = response.json()
     
     temperature = round(data["main"]["temp"],1)
-    feel = data["main"]["feels_like"]
+    feel = round(data["main"]["feels_like"],1)
     humidity= data["main"]["humidity"]
     pressure= data["main"]["pressure"]
     weather = data["weather"][0]["description"]
