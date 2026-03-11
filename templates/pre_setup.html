@@ -56,11 +56,11 @@
                     <div class="market-price">
                         <p class="market-title">Market Price</p>
                         <select class="price-unit" name="currency">
+                            <option value="Malaysian Ringgit">MYR</option>
                             <option value="Brunei Dollar">BND</option>
                             <option value="Cambodian Riel">KHR</option>
                             <option value="Indonesian Rupiah">IDR</option>
-                            <option value="Lao Kip">LAK</option>
-                            <option value="Malaysian Ringgit">MYR</option>
+                            <option value="Laotian Kip">LAK</option>
                             <option value="Myanmar Kyat">MMK</option>
                             <option value="Philippine Peso">PHP</option>
                             <option value="Singapore Dollar">SGD</option>
@@ -71,9 +71,30 @@
                     </select>
                     </div>
                     <div class="adjust-price">
-                    <input class="input-price" name="price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
-                    <input class="input-price" name="price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
-                    <input class="input-price" name="price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
+                    <input class="input-price" 
+                        name="price" 
+                        type="number" 
+                        min="0" 
+                        step="0.01" 
+                        oninput="this.value = parseFloat(this.value).toFixed(2)" 
+                        placeholder="e.g. 3.50">
+                        
+                    <input class="input-price" 
+                        name="price" 
+                        type="number" 
+                        min="0" 
+                        step="0.01" 
+                        oninput="this.value = parseFloat(this.value).toFixed(2)" 
+                        placeholder="e.g. 3.50">
+                        
+                    <input class="input-price" 
+                        name="price" 
+                        type="number" 
+                        min="0" 
+                        step="0.01" 
+                        oninput="this.value = parseFloat(this.value).toFixed(2)" 
+                        placeholder="e.g. 3.50">
+
                     </div>
                 </div>
                 </div>
