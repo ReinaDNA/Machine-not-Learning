@@ -21,18 +21,18 @@
         <div class="greg-profile">
             <p class="greg-talks">Let's do a quick check before we start.</p>
         </div>
-
+        <form action="/pre_setup" method="post">
         <div class="content-block">
             <div class="location">
                 <p>Location</p>
-                <input class="input-location" type="text" placeholder="Enter Location">
+                <input class="input-location" name="location" type="text" placeholder="Enter Location">
             </div>
             <div>
             <div class="land-size">
                 <p>Land size</p>
-                <input class="input-height" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder="Height">
+                <input class="input-height" name="length" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder="Length">
                 <span class="multiply">&times</span>
-                <input class="input-width" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder="Width">
+                <input class="input-width" name="width" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder="Width">
                 <span class="unit">m</span>
             </div>
             </div>
@@ -41,15 +41,15 @@
                     <p>Crops</p>
                     <div class="crops-row">
                     <span class="list-icon">&#9776;</span>
-                    <input class="input-crops" type="text" placeholder="e.g. Corn">
+                    <input class="input-crops" name="crops" type="text" placeholder="e.g. Corn">
                     </div>
                     <div class="crops-row">
                     <span class="list-icon">&#9776;</span>
-                    <input class="input-crops" type="text" placeholder="e.g. Corn">
+                    <input class="input-crops" name="crops" type="text" placeholder="e.g. Corn">
                     </div>
                     <div class="crops-row">
                     <span class="list-icon">&#9776;</span>
-                    <input class="input-crops" type="text" placeholder="e.g. Corn">
+                    <input class="input-crops" name="crops" type="text" placeholder="e.g. Corn">
                     </div>
                 </div>
                 <div class="column">
@@ -71,9 +71,9 @@
                     </select>
                     </div>
                     <div class="adjust-price">
-                    <input class="input-price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
-                    <input class="input-price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
-                    <input class="input-price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
+                    <input class="input-price" name="price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
+                    <input class="input-price" name="price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
+                    <input class="input-price" name="price" type="number" min="0" onkeypress="return event.charCode !== 45" placeholder ="e.g. 3.50">
                     </div>
                 </div>
                 </div>
@@ -81,10 +81,9 @@
         </div>
         </div>
         <div class="right">
-            <a href="main_page.html">
-                <button>Submit</button>
-            </a>
+                <button type="Submit">Submit</button>
         </div>
+        </form>
         <p class="footer">GregAi can make mistakes. Check important info.</p>
     </body>
 </html>

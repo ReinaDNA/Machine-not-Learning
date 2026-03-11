@@ -7,7 +7,7 @@
 <body>
     <main class="page">
         <header class="top-row">
-            <a class="brand" href="main_page.html">
+            <a class="brand" href="{{url_for('home')}}">
                 <img class="brand-logo" src="../static/image/brandlogo.png" alt="GregHarvest AI logo">
                 <h1 class="title">GregHarvest.</h1>
             </a>
@@ -74,7 +74,7 @@
 
         <div class="layout">
             <section class="chat-area">
-                <h2 class="weather-forecast">Kuching Weather Forecast Today</h2>
+                <h2 id="chat-title" class="weather-forecast">Kuching Weather Forecast Today</h2>
 
                 <div class="chat-block">
                     <div class="chat-container" id="chat-container">
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="prompt-bar">
-                        <button class="icon-btn" type="button" aria-label="Attach file">
+                        <button class="icon-btn" id="attach-btn" type="button">
                             <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M8 7v9a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v10a2 2 0 0 0 4 0V8"></path>
                             </svg>
@@ -103,14 +103,53 @@
                                 <path d="M22 2 15 22 11 13 2 9 22 2z"></path>
                             </svg>
                         </button>
+
+                        <div class="file-menu" id="file-menu">
+
+                        <div class="file-path">
+                            <span class="file-icon">📄</span>
+                            <input type="text" value="C:\Users\User\Desktop">
+                        </div>
+
+                        <div class="file-item">
+    <div class="file-circle">
+        <img src="../static/image/pdf.png" alt="PDF file">
+    </div>
+    <span>mylittlepony.pdf</span>
+</div>
+
+<div class="file-item">
+    <div class="file-circle">
+        <img src="../static/image/docx.png" alt="DOC file">
+    </div>
+    <span>buggati.docx</span>
+</div>
+
+                    </div>
                     </div>
                 </div>
             </section>
 
             <aside id="history-panel" class="history-panel">
+
+            <div class="sidebar-nav">
+                <a class="nav-item" href="{{url_for('home')}}">Home</a>
+                <a class="nav-item" href="{{url_for('chatbot')}}">Ask AI</a>
+                <a class="nav-item" href="{{url_for('profile')}}">Profile</a>
+            </div>
+
+            <div class="sidebar-history">
                 <h3 class="history-title">History</h3>
+
+                <div class="history-item">Kuching Weather Forecast Today</div>
                 <div class="history-item">Chitchat Scenario</div>
-                <div class="history-search">Kuching Weather Forecast Today</div>
+                <div class="history-item">Corn Planting Advice</div>
+                <div class="history-item">Carrot Soil Requirement</div>
+            </div>
+
+                <div class="sidebar-bottom">
+                    <a class="logout-btn" href="{{url_for('pre_setup')}}">Log Out</a>
+                </div>
             </aside>
         </div>
     </main>
@@ -125,6 +164,8 @@
         const chatInput = document.getElementById("chat-input");
         const composeActionBtn = document.getElementById("compose-action-btn");
         const chatContainer = document.getElementById("chat-container");
+        const attachBtn = document.getElementById("attach-btn");
+        const fileMenu = document.getElementById("file-menu");
 
         function closeReviewSidebar() {
             const page = document.querySelector(".page");
@@ -256,6 +297,20 @@
 
         setSidebarEditMode(false);
         updateComposeActionState();
+
+        const historyItems = document.querySelectorAll(".history-item");
+        const chatTitle = document.getElementById("chat-title");
+            historyItems.forEach(item => {
+            item.addEventListener("click", () => {
+            chatTitle.textContent = item.textContent;
+            });
+        });
+
+        attachBtn.addEventListener("click", () => {
+
+    fileMenu.classList.toggle("show");
+
+});
     </script>
 </body>
 </html>
