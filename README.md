@@ -1,2 +1,53 @@
-# Machine-not-Learning
-Source code for the team to participate in BorNEO HackWind 2026
+# GregHarvest AI
+AI-powered crop recommendation system for small-scale farmers.
+
+## Problem
+Many small-scale farmers lack digital literacy, leaving them dependent on outdated practices.
+Overplanting leads to more crops but lower earnings due to poor market alignment and supply chain inefficiencies.
+Inability to anticipate or mitigate weather risks which results in crop losses.
+
+## Solution 
+GregHarvest AI analyzes market prices and suggest crop quantity allocation to achieve balance between profit and quantity of crops.
+GregHarvest AI gives suggestions to farmers based on real-time weather data.
+
+## Features
+- Weather-based chatbot advice
+- Land allocation management
+- Farmer-friendly dashboard
+- Market price analysis
+
+## Tech Stack
+- Frontend: HTML, CSS, Javascript
+- Backend: Flask (Python)
+- AI Integration: OpenAI API
+- Data: OpenWeather API
+
+## Installation
+1. Clone the github repository 
+git clone https://github.com/ReinaDNA/Machine-not-Learning
+
+2. Install dependencies
+pip install -r requirements.txt 
+(It is recommended to use a virtual environment)
+
+3. Create a .env file and fill in the API keys with the following names:
+OPENWEATHER_API_KEY = YOUR_API_KEY
+OPENAI_API_KEY = YOUR_API_KEY
+
+4. Run the app
+py app.py or python app.py 
+(Both have the same function, whichever works)
+
+## Team
+- Jacky Bong Chun Wui - Front End
+- William Tan Jun Khai - Front End
+- Chan Huan Yee - Front End
+- Seng Zhi Jie - Back End
+- Darren Huang Huat Yao - Back End
+
+## Future improvements
+- Insert market data of crops
+- Further improving the advices given by AI
+- Integration with finance APIs to allow transactions.
+
+
