@@ -29,6 +29,7 @@ conversation = [
     }
 ]
 
+# Weather Page Route
 @app.route("/")
 def home():
     city="Kuala Lumpur"
@@ -76,6 +77,7 @@ def home():
         dew_point=dew_point
     )
 
+# Chatbot Route
 @app.route("/chatbot", methods=["GET", "POST"])
 def chatbot():
     question = request.args.get("question")
@@ -132,6 +134,7 @@ def ask_ai():
 
     return jsonify({"reply": answer})
 
+# Pre-Setup Route
 @app.route("/pre_setup", methods = ["GET", "POST"])
 def pre_setup():
     
@@ -147,8 +150,7 @@ def pre_setup():
     
     return render_template("pre_setup.html")
 
-
-
+# Login Route
 @app.route("/login", methods=["GET"])
 def login():
     return render_template("login.html")
@@ -193,6 +195,7 @@ def get_crop_plan(customer):
 
     return response.choices[0].message.content
 
+# Profile Route
 @app.route("/profile", methods = ["GET"])  
 def profile():
     suggestion = get_crop_plan(customer)
