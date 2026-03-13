@@ -16,6 +16,9 @@ GregHarvest AI gives suggestions to farmers based on real-time weather data.
 - Farmer-friendly dashboard
 - Market price analysis
 
+## Demo
+- Youtube link: https://youtu.be/Q8TY6GDbGZ4
+
 ## Tech Stack
 - Frontend: HTML, CSS, Javascript
 - Backend: Flask (Python)
